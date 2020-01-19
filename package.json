@@ -1,0 +1,23 @@
+{
+  "name": "shulkpay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+   "start": "concurrently \"cd backend && node server.js\" \"cd client && npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/pravin_arzooo/shulkpay.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/pravin_arzooo/shulkpay/issues"
+  },
+  "homepage": "https://gitlab.com/pravin_arzooo/shulkpay#README",
+  "dependencies": {
+    "concurrently": "^5.0.2"
+  }
+}
