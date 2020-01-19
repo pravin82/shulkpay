@@ -43,13 +43,13 @@ function getDbServerConfig() {
   let env = process.env.ENVIRONMENT;
   switch (env) {
     case "prod":
-      return Object.assign({}, globalConfig, zonalConfig['beta']);
+      return Object.assign({}, zonalConfig['beta']);
       break;
     case "test":
-      return Object.assign({}, globalConfig, zonalConfig['test']);
+      return Object.assign({}, zonalConfig['test']);
       break;
     default:
-      return Object.assign({}, globalConfig, zonalConfig['local']);
+      return Object.assign({}, zonalConfig['local']);
       break;
   }
 }
@@ -88,6 +88,12 @@ function sqlExecutorAsync(req, res, statement, values) {
       return resolve({ status: 'success', data: result })
     })
   })
+}
+
+module.exports = {
+  connect: connect,
+  getConnection: getConnection,
+  sqlExecutorAsync
 }
 
 
