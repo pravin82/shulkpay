@@ -1,9 +1,13 @@
 import React from "react";
-import loginImg from "../../login.svg"
+import loginImg from "../../login.svg";
 
 export class Login extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  handleLogin() {
+    alert("handlogin clicked");
   }
 
   render() {
@@ -26,7 +30,7 @@ export class Login extends React.Component {
           </div>
         </div>
         <div className="footer">
-          <button type="button" className="btn" onClick={()=>this.setState({this.handleLogin})}>
+          <button type="button" className="btn" onClick={this.handleLogin}>
             Login
           </button>
         </div>

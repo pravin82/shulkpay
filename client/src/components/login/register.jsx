@@ -2,8 +2,12 @@ import React from "react";
 import loginImg from "../../login.svg";
 
 export class Register extends React.Component {
-  constructor(props) {=
+  constructor(props) {
     super(props);
+  }
+
+  handleLogin() {
+    alert("handlogin clicked");
   }
 
   render() {
@@ -30,7 +34,7 @@ export class Register extends React.Component {
           </div>
         </div>
         <div className="footer">
-          <button type="button" className="btn">
+          <button type="button" onClick={this.handleLogin} className="btn">
             Register
           </button>
         </div>
