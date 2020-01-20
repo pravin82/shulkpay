@@ -1,5 +1,6 @@
 import React from "react";
 import loginImg from "../../login.svg";
+import axios from "axios";
 
 export class Login extends React.Component {
   constructor(props) {
@@ -7,7 +8,9 @@ export class Login extends React.Component {
   }
 
   handleLogin() {
-    alert("handlogin clicked");
+    axios
+      .post("https://api.github.com/users/maecapozzi")
+      .then(response => console.log(response));
   }
 
   render() {
