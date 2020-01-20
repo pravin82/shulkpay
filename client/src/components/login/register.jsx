@@ -6,8 +6,8 @@ export class Register extends React.Component {
     super(props);
   }
 
-  handleLogin() {
-    alert("handlogin clicked");
+  handleRegister() {
+    alert("handRegister clicked");
   }
 
   render() {
@@ -34,7 +34,7 @@ export class Register extends React.Component {
           </div>
         </div>
         <div className="footer">
-          <button type="button" onClick={this.handleLogin} className="btn">
+          <button type="button" onClick={this.handleRegister} className="btn">
             Register
           </button>
         </div>

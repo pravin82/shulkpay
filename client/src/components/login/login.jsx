@@ -1,6 +1,7 @@
 import React from "react";
 import loginImg from "../../login.svg";
 import axios from "axios";
+import constantUtils from "../../constant.js";
 
 export class Login extends React.Component {
   constructor(props) {
@@ -8,9 +9,9 @@ export class Login extends React.Component {
   }
 
   handleLogin() {
-    axios
-      .post("https://api.github.com/users/maecapozzi")
-      .then(response => console.log(response));
+    let url = constantUtils.baseUrl;
+    alert("function called", url);
+    axios.post(url + "/user/login").then(response => console.log(response));
   }
 
   render() {
