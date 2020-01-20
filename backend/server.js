@@ -15,7 +15,7 @@ const API_PORT = 3001;
 const apiRouter = require(`${__base}/routes/router`)
 
 app.disable('view cache')
-//app.locals.host = 'http://shulkpay.test:8080/'
+app.locals.host = 'http://shulkpay.test:8080/'
 app.use(apiRouter);
 
 db.connect(null, (err) => {
@@ -23,8 +23,8 @@ db.connect(null, (err) => {
     console.log('Unable to connect to MySQL.')
     process.exit(1)
   } else {
-    app.listen(API_PORT, async () => {
-      console.log('App listening started at port ' + API_PORT)
+    app.listen(PORT, async () => {
+      console.log('App listening started at port ' + PORT)
     })
   }
 })
