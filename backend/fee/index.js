@@ -1,6 +1,10 @@
 const dbUtils = require(`${__base}/database/mysql`)
+const feeValidator = require('./validator')
 
-async function payFee(req, res ) {
+
+async function payFee(req, res, params ) {
+  const validatorResp = feeValidator.payFeeValidator(params)
+  if (validatorResp.error) return validatorResp
   let {studentId, amount} = req.body
   let statement = `insert into payments (student_id, amount) values (?, ?)`
   let values = [studentId, amount]
