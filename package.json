@@ -19,6 +19,7 @@
   "homepage": "https://gitlab.com/pravin_arzooo/shulkpay#README",
   "dependencies": {
     "concurrently": "^5.0.2",
-    "mysql": "^2.17.1"
+    "mysql": "^2.17.1",
+    "node-sass": "^4.13.1"
   }
 }
