@@ -1,7 +1,6 @@
 const cookieUtility = require(`${__base}/utils/cookie`);
 
 async function saveSessionAndCookie(req, res, loginData) {
-	console.log("Req++", req.session);
 	req.session.username = loginData.username;
 	req.session.school_id = loginData.school_id;
 	req.session.userId = loginData.id;
