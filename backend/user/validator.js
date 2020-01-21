@@ -15,12 +15,8 @@ function fillRespWithErrors(resp, errorObj) {
 
 function loginValidator(params) {
   const schema = Joi.object().keys({
-    username: Joi.number()
-      .string()
-      .required(),
-    password: Joi.number()
-      .string()
-      .required()
+    username: Joi.string().required(),
+    password: Joi.string().required()
   });
   return validate(params, schema);
 }

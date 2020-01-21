@@ -4,7 +4,7 @@ const userFactory = require("./index.js");
 
 router.post("/login", async (req, res) => {
 	const params = lodash.pick(req.body, ["username", "password"]);
-	const loginResp = await feeFactory.login(req, res, params);
+	const loginResp = await userFactory.login(req, res, params);
 	res.send(loginResp);
 });
 

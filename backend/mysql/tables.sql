@@ -15,8 +15,10 @@ CREATE TABLE IF NOT EXISTS `users` (
    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,     
    `school_id` int(11) NOT NULL,     
    `username` varchar(256) NOT NULL,
+   `name` varchar(256) NOT NULL,
    `password` varchar(256) NOT NULL,
    `created_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
    `updated_on` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    PRIMARY KEY(`id`)
 );
+
