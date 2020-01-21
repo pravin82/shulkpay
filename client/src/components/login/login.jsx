@@ -10,7 +10,6 @@ export class Login extends React.Component {
 
   handleLogin() {
     let url = constantUtils.baseUrl;
-    alert("function called", url);
     axios.post(url + "/user/login").then(response => console.log(response));
   }
 
