@@ -39,7 +39,7 @@ class MainPage extends React.Component {
         <div className="login">
           <div className="container" ref={ref => (this.container = ref)}>
             {isLogginActive && (
-              <LoginPage containerRef={ref => (this.current = ref)} />
+              <LoginPage containerRef={ref => (this.current = ref)} location={this.props.location} history = {this.props.history} />
             )}
             {!isLogginActive && (
               <RegisterPage containerRef={ref => (this.current = ref)} />

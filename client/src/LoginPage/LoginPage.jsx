@@ -25,17 +25,19 @@ export class LoginPage extends React.Component {
     this.setState({ [name]: value });
   }
   
-  handleLogin() {
+  handleLogin(e) {
     let {username, password} = this.state
     let values = {username: username,
                   password: password}
     axios.post(url + "/user/login", values)
     .then(response => {
-      if(response.data.status == 'error') alert(response.data.msg)
-      else if(response.data.status == 'success'){
+      if (response.data.status == 'error') alert(response.data.msg)
+      else {
+        localStorage.setItem('user', response.data.data[0])
+        //alert(this.props.location)
         const { from } = this.props.location.state || { from: { pathname: "/" } };
         this.props.history.push(from);  
-      }
+      }    
 
     })
     
