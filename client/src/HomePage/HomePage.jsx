@@ -7,8 +7,11 @@ class HomePage extends React.Component {
     }
 
     componentDidMount() {
-        console.log("obj++",JSON.parse(localStorage.getItem('user')))
+       this.setState(JSON.parse(localStorage.getItem('user')))
        
+    }
+    handleLogOut(e) {
+        localStorage.removeItem('user');
     }
 
     render() {
@@ -18,6 +21,9 @@ class HomePage extends React.Component {
                 <h1>Hi  {JSON.parse(localStorage.getItem('user')).name}</h1>
                 <p>You're logged in with React & Basic HTTP Authentication!! </p>
                 <h3>Users from secure api end point:</h3>
+                <button type="button" className="btn" onClick={this.handleLogOut}>
+                 LogOut
+                </button>
             </div>
         );
     }
