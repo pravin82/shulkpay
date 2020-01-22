@@ -33,14 +33,12 @@ export class LoginPage extends React.Component {
     .then(response => {
       if (response.data.status == 'error') alert(response.data.msg)
       else {
-        localStorage.setItem('user', response.data.data[0])
-        //alert(this.props.location)
+        localStorage.setItem('user', JSON.stringify(response.data.data[0]))
         const { from } = this.props.location.state || { from: { pathname: "/" } };
         this.props.history.push(from);  
       }    
 
-    })
-    
+    })    
   }
 
   render() {

@@ -19,7 +19,6 @@ class MainPage extends React.Component {
 
   changeState() {
     const { isLogginActive } = this.state;
-
     if (isLogginActive) {
       this.rightSide.classList.remove("right");
       this.rightSide.classList.add("left");
