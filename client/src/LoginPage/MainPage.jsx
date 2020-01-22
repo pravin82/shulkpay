@@ -1,8 +1,10 @@
 import React from "react";
-import "./App.scss";
-import { Login, Register } from "./components/login/index";
+import "./MainPage.scss";
+import {LoginPage}  from "./index";
+import {RegisterPage}  from "./index";
 
-class App extends React.Component {
+
+class MainPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +19,6 @@ class App extends React.Component {
 
   changeState() {
     const { isLogginActive } = this.state;
-
     if (isLogginActive) {
       this.rightSide.classList.remove("right");
       this.rightSide.classList.add("left");
@@ -37,10 +38,10 @@ class App extends React.Component {
         <div className="login">
           <div className="container" ref={ref => (this.container = ref)}>
             {isLogginActive && (
-              <Login containerRef={ref => (this.current = ref)} />
+              <LoginPage containerRef={ref => (this.current = ref)} location={this.props.location} history = {this.props.history} />
             )}
             {!isLogginActive && (
-              <Register containerRef={ref => (this.current = ref)} />
+              <RegisterPage containerRef={ref => (this.current = ref)} />
             )}
           </div>
           <RightSide
@@ -69,4 +70,4 @@ const RightSide = props => {
   );
 };
 
-export default App;
+export {MainPage} ;

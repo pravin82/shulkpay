@@ -1,22 +1,19 @@
 import React from "react";
-import loginImg from "../../login.svg";
-import axios from "axios";
-import constantUtils from "../../constant.js";
+import loginImg from "../login.svg";
 
-export class Login extends React.Component {
+export class RegisterPage extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  handleLogin() {
-    let url = constantUtils.baseUrl;
-    axios.post(url + "/user/login").then(response => console.log(response));
+  handleRegister() {
+    alert("handRegister clicked");
   }
 
   render() {
     return (
       <div className="base-container" ref={this.props.containerRef}>
-        <div className="header">Login</div>
+        <div className="header">Register</div>
         <div className="content">
           <div className="image">
             <img src={loginImg} />
@@ -27,14 +24,18 @@ export class Login extends React.Component {
               <input type="text" name="username" placeholder="username" />
             </div>
             <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input type="text" name="email" placeholder="email" />
+            </div>
+            <div className="form-group">
               <label htmlFor="password">Password</label>
-              <input type="password" name="password" placeholder="password" />
+              <input type="text" name="password" placeholder="password" />
             </div>
           </div>
         </div>
         <div className="footer">
-          <button type="button" className="btn" onClick={this.handleLogin}>
-            Login
+          <button type="button" onClick={this.handleRegister} className="btn">
+            Register
           </button>
         </div>
       </div>
