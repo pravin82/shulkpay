@@ -4,6 +4,8 @@ import React from 'react';
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
+        this.handleLogOut = this.handleLogOut.bind(this);
+
     }
 
     componentDidMount() {
@@ -12,6 +14,7 @@ class HomePage extends React.Component {
     }
     handleLogOut(e) {
         localStorage.removeItem('user');
+        this.props.history.push('/login');  
     }
 
     render() {
