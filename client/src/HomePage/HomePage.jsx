@@ -11,6 +11,8 @@ class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.handleLogOut = this.handleLogOut.bind(this);
+        this.handleAddStudent = this.handleAddStudent.bind(this);
+
 
     }
 
@@ -21,6 +23,9 @@ class HomePage extends React.Component {
     handleLogOut(e) {
         localStorage.removeItem('user');
         this.props.history.push('/login');  
+    }
+    handleAddStudent(e) {
+        this.props.history.push('/student'); 
     }
 
     render() {

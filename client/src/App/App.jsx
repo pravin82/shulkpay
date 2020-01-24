@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { PrivateRoute } from '../components/PrivateRoute';
 import { HomePage } from '../HomePage/HomePage';
 import { MainPage } from '../LoginPage/MainPage';
+import { StudentPage } from '../StudentPage/StudentPage';
+
 
 class App extends React.Component {
     render() {
@@ -15,6 +17,7 @@ class App extends React.Component {
                             <div>
                                 <PrivateRoute exact path="/" component={HomePage} />
                                 <Route  path="/login" component={MainPage} />
+                                <Route  path="/student" component={StudentPage} />
                             </div>
                         </Router>
                     </div>
