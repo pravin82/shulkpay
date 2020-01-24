@@ -6,7 +6,11 @@ async function login(req, res, params) {
 	const validatorResp = userValidator.loginValidator(params);
 	if (validatorResp.error) return validatorResp;
 	let { username, password } = req.body;
-	let statement = `select username, name, school_id, id from users where username = ? and password = ?`;
+	let statement = `select u.username, u.name, u.school_id, u.id,
+	                 s.name as school_name
+	                 from users u
+	                 left join schools s on s.id = u.school_id 
+	                 where username = ? and password = ?`;
 	let values = [username, password];
 	let loginResp = await dbUtils.sqlExecutorAsync(req, res, statement, values);
 	if (loginResp.status == "error") return loginResp;

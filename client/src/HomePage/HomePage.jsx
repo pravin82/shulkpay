@@ -28,6 +28,9 @@ class HomePage extends React.Component {
         return (
             
             <div className="parent">
+            <div className = "school">
+            <h1> {JSON.parse(localStorage.getItem('user')).school_name}</h1>
+            </div>
             <div className="button-container"> 
                 <h2>Hi  {JSON.parse(localStorage.getItem('user')).name}</h2>
             <Button variant="contained" color = 'primary' className = 'btn-student' onClick={this.handleAddStudent} >

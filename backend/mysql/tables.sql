@@ -22,3 +22,14 @@ CREATE TABLE IF NOT EXISTS `users` (
    PRIMARY KEY(`id`)
 );
 
+-- 24th January 2020 Created by Pravin
+
+CREATE TABLE IF NOT EXISTS `schools` (
+   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,     
+   `name` varchar(256) NOT NULL,
+   `created_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   `updated_on` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   PRIMARY KEY(`id`)
+);
+
+insert into schools(name) values('Pravin High School')
