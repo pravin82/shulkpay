@@ -1,4 +1,10 @@
 import React from 'react';
+import SearchBar from 'material-ui-search-bar'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Button from '@material-ui/core/Button';
+import "../index.css"
+import "./HomePage.scss";
+
 
 
 class HomePage extends React.Component {
@@ -20,14 +26,30 @@ class HomePage extends React.Component {
     render() {
     
         return (
-            <div className="col-md-6 col-md-offset-3">
-                <h1>Hi  {JSON.parse(localStorage.getItem('user')).name}</h1>
-                <p>You're logged in with React & Basic HTTP Authentication!! </p>
-                <h3>Users from secure api end point:</h3>
-                <button type="button" className="btn" onClick={this.handleLogOut}>
-                 LogOut
-                </button>
+            
+            <div className="parent">
+            <div className="button-container"> 
+                <h2>Hi  {JSON.parse(localStorage.getItem('user')).name}</h2>
+            <Button variant="contained" color = 'primary' className = 'btn-student' onClick={this.handleAddStudent} >
+            Add Student
+            </Button>
+                 
+            <Button variant="contained" color = 'primary' className = 'btn-logout' onClick={this.handleLogOut} >
+            Logout
+            </Button>
             </div>
+               <MuiThemeProvider>
+               <SearchBar className = "searchbar"
+                onChange={() => console.log('onChange')}
+                onRequestSearch={() => console.log('onRequestSearch')}
+                style={{
+                   margin: '0 auto',
+                   maxWidth: 400
+                }}
+               />
+               </MuiThemeProvider>
+            </div>
+
         );
     }
 }
