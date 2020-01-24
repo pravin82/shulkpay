@@ -30,10 +30,10 @@ class HomePage extends React.Component {
             <div className="parent">
             <div className="button-container"> 
                 <h2>Hi  {JSON.parse(localStorage.getItem('user')).name}</h2>
-                 <button type="button" className="btn-student" onClick={this.handleAddStudent}>
-                 Add Student
-                </button>
-            
+            <Button variant="contained" color = 'primary' className = 'btn-student' onClick={this.handleAddStudent} >
+            Add Student
+            </Button>
+                 
             <Button variant="contained" color = 'primary' className = 'btn-logout' onClick={this.handleLogOut} >
             Logout
             </Button>
