@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import "./StudentPage.scss";
+import Input from '@material-ui/core/Input';
 
 export class StudentPage extends React.Component {
   constructor(props) {
@@ -28,10 +29,10 @@ render() {
     return (
       <div className="wrapper">
         <div className="form-wrapper">
-          <h1>Create Account</h1>
+          <h1>Add Student</h1>
           <form onSubmit={this.handleSubmit} noValidate>
             <div className="firstName">
-              <input
+              <Input
                 className={formErrors.firstName.length > 0 ? "error" : null}
                 placeholder="First Name"
                 type="text"
@@ -44,7 +45,7 @@ render() {
               )}
             </div>
               <div className="middleName">
-              <input
+              <Input
                 placeholder="Middle Name"
                 type="text"
                 name="middleName"
@@ -53,7 +54,7 @@ render() {
               />
             </div>
             <div className="lastName">
-              <input
+              <Input
                 className={formErrors.lastName.length > 0 ? "error" : null}
                 placeholder="Last Name"
                 type="text"
@@ -65,39 +66,19 @@ render() {
                 <span className="errorMessage">{formErrors.lastName}</span>
               )}
             </div>
-          
+            <div>
+            <Input 
+              placeholder = 'Roll No'
+              required = "true"
+              name = "RollNo"
+              type = "number"
+              onChange = {this.handleChange}
+              />
+              </div>
 
-            <div className="email">
-              <label htmlFor="email">Email</label>
-              <input
-                className={formErrors.email.length > 0 ? "error" : null}
-                placeholder="Email"
-                type="email"
-                name="email"
-                noValidate
-                onChange={this.handleChange}
-              />
-              {formErrors.email.length > 0 && (
-                <span className="errorMessage">{formErrors.email}</span>
-              )}
-            </div>
-            <div className="password">
-              <label htmlFor="password">Password</label>
-              <input
-                className={formErrors.password.length > 0 ? "error" : null}
-                placeholder="Password"
-                type="password"
-                name="password"
-                noValidate
-                onChange={this.handleChange}
-              />
-              {formErrors.password.length > 0 && (
-                <span className="errorMessage">{formErrors.password}</span>
-              )}
-            </div>
+           
             <div className="createAccount">
               <button type="submit">Create Account</button>
-              <small>Already Have an Account?</small>
             </div>
           </form>
         </div>
