@@ -79,7 +79,6 @@ input.error {
 .email,
 .password {
   display: flex;
-  flex-direction: column;
   margin-bottom: 15px;
 }
 
@@ -124,3 +123,21 @@ input.error {
   color: #999;
   font-weight: lighter;
 }
+ 
+.formControl {
+    margin: 8px;
+    minWidth: 120;
+  }
+
+.class {
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+}
+
+.name {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
