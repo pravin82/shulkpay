@@ -6,7 +6,15 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+
+const StyledFormControl= withStyles({
+  root: {
+    minWidth:"120px"
+  }
+})(FormControl);
 
 export class StudentPage extends React.Component {
   constructor(props) {
@@ -58,6 +66,7 @@ export class StudentPage extends React.Component {
       this.setState({classOpen:false})
     } 
   }
+
   
 
 
@@ -70,7 +79,7 @@ render() {
     return (
       <div className="wrapper">
         <div className="form-wrapper">
-          <h1>Add Student</h1>
+          <h1 className ="add">Add Student</h1>
           <form onSubmit={this.handleSubmit} noValidate>
           <div className = "name">
             <div className="firstName">
@@ -118,8 +127,8 @@ render() {
               onChange = {this.handleChange}
               />
 
-              <FormControl className="formControl">
-             <InputLabel id="demo-controlled-open-select-label">Age</InputLabel>
+              <StyledFormControl className="formControl">
+             <InputLabel id="demo-controlled-open-select-label">Class</InputLabel>
              <Select
                 labelId="demo-controlled-open-select-label"
                 id="demo-controlled-open-select"
@@ -133,14 +142,24 @@ render() {
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value={'NURS'}>Nursery</MenuItem>
+            <MenuItem value={'LKG'}>LKG</MenuItem>
+            <MenuItem value={'UKG'}>UKG</MenuItem>
+            <MenuItem value={'1'}>1</MenuItem>
+            <MenuItem value={'2'}>2</MenuItem>
+            <MenuItem value={'3'}>3</MenuItem>
+            <MenuItem value={'4'}>4</MenuItem>
+            <MenuItem value={'5'}>5</MenuItem>
+            <MenuItem value={'6'}>6</MenuItem>
+            <MenuItem value={'7'}>7</MenuItem>
+            <MenuItem value={'8'}>8</MenuItem>
+            <MenuItem value={'9'}>9</MenuItem>
+            <MenuItem value={'10'}>10</MenuItem>
             </Select>
-      </FormControl>
+      </StyledFormControl>
 
-        <FormControl className="formControl">
-             <InputLabel id="demo-controlled-open-select-label">Age</InputLabel>
+        <StyledFormControl classes = {{root:'formControl'}}>
+             <InputLabel id="demo-controlled-open-select-label">Section</InputLabel>
              <Select
                 labelId="demo-controlled-open-select-label"
                 id="demo-controlled-open-select"
@@ -154,11 +173,11 @@ render() {
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value={'A'}>A</MenuItem>
+            <MenuItem value={'B'}>B</MenuItem>
+            <MenuItem value={'C'}>C</MenuItem>
             </Select>
-      </FormControl>
+      </StyledFormControl>
            
               </div>
               
@@ -167,7 +186,7 @@ render() {
 
            
             <div className="createAccount">
-              <button type="submit">Create Account</button>
+              <Button  variant="contained" color="primary">Submit</Button>
             </div>
           </form>
         </div>
