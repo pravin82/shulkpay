@@ -6,8 +6,12 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import { makeStyles,withStyles } from '@material-ui/core/styles';
+import {withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import constantUtils from "../constant.js";
+const url = constantUtils.baseUrl;
+
+axios.defaults.withCredentials = true;
 
 
 const StyledFormControl= withStyles({
@@ -27,8 +31,8 @@ export class StudentPage extends React.Component {
       classOpen:false,
       secOpen:false,
       rollNo: null,
-      class: null,
-      section: null,
+      studentClass: null,
+      studentSection: null,
       formErrors: {
         firstName: "",
         lastName: "",
@@ -40,6 +44,8 @@ export class StudentPage extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   handleChange(e) {
@@ -65,6 +71,27 @@ export class StudentPage extends React.Component {
     else{
       this.setState({classOpen:false})
     } 
+  }
+
+  handleSubmit(e) {
+    console.log("called")
+    let {firstName, middleName, lastName, studentClass, studentSection, rollNo} = this.state
+    let name = firstName + " " + middleName + " " + lastName
+    if(!middleName){
+      name = firstName + " " + lastName
+    }
+    let values = {name: name,
+                 studentClass: studentClass, studentSection:studentSection, rollNo:rollNo
+                }
+    axios.post(url + "/student/add", values)
+    .then(response => {
+      if (response.data.status == 'error') alert(response.data.msg)
+      else {
+        const { from } = this.props.location.state || { from: { pathname: "/student" } };
+        this.props.history.push(from);  
+      }    
+
+    })    
   }
 
   
@@ -133,7 +160,7 @@ render() {
                 labelId="demo-controlled-open-select-label"
                 id="demo-controlled-open-select"
                 open={this.state.Classopen}
-                name = "class"
+                name = "studentClass"
                 onClose={this.handleClose}
                 onOpen={this.handleOpen}
                 value={this.state.class}
@@ -142,7 +169,7 @@ render() {
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            <MenuItem value={'NURS'}>Nursery</MenuItem>
+            <MenuItem value={'NURSERY'}>Nursery</MenuItem>
             <MenuItem value={'LKG'}>LKG</MenuItem>
             <MenuItem value={'UKG'}>UKG</MenuItem>
             <MenuItem value={'1'}>1</MenuItem>
@@ -163,7 +190,7 @@ render() {
              <Select
                 labelId="demo-controlled-open-select-label"
                 id="demo-controlled-open-select"
-                name = "section"
+                name = "studentSection"
                 open={this.state.SecOpen}
                 onClose={this.handleClose}
                 onOpen={this.handleOpen}
@@ -186,7 +213,10 @@ render() {
 
            
             <div className="createAccount">
-              <Button  variant="contained" color="primary">Submit</Button>
+              <Button  variant="contained" color="primary"
+                       onClick = {this.handleSubmit}
+              >
+              Submit</Button>
             </div>
           </form>
         </div>

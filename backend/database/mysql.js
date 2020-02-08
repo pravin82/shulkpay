@@ -93,7 +93,8 @@ function sqlExecutorAsync(req, res, statement, values) {
 module.exports = {
   connect: connect,
   getConnection: getConnection,
-  sqlExecutorAsync
+  sqlExecutorAsync,
+  sqlExecutor
 }
 
 

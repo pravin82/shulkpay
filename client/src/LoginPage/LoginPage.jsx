@@ -3,6 +3,7 @@ import loginImg from "../login.svg";
 import axios from "axios";
 import constantUtils from "../constant.js";
 const url = constantUtils.baseUrl;
+axios.defaults.withCredentials = true;
 
 export class LoginPage extends React.Component {
   constructor(props) {
@@ -33,7 +34,7 @@ export class LoginPage extends React.Component {
     .then(response => {
       if (response.data.status == 'error') alert(response.data.msg)
       else {
-        localStorage.setItem('user', JSON.stringify(response.data.data[0]))
+        localStorage.setItem('user', JSON.stringify(response.data.login_data))
         const { from } = this.props.location.state || { from: { pathname: "/" } };
         this.props.history.push(from);  
       }    
