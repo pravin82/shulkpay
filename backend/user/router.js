@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const lodash = require("lodash");
-const userFactory = require("./index.js");
 const passport = require('passport');
 const userHelper = require("./helper");
 require('./sso');
@@ -20,13 +19,6 @@ passport.deserializeUser(function (obj, done) {
 
 
 
-/*
-router.post("/login", async (req, res) => {
-	const params = lodash.pick(req.body, ["username", "password"]);
-	const loginResp = await userFactory.login(req, res, params);
-	res.send(loginResp);
-});
-*/
 
 router.post('/login', function (req, res, next) {
   passport.authenticate('user_login', function (result) {
@@ -36,5 +28,7 @@ router.post('/login', function (req, res, next) {
     return res.status(200).json(result)
   })(req, res, next)
 })
+
+
 
 module.exports = router;
