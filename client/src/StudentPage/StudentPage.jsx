@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import "./StudentPage.scss";
 import Input from '@material-ui/core/Input';
+import Snackbar from '@material-ui/core/Snackbar';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -9,10 +10,14 @@ import FormControl from '@material-ui/core/FormControl';
 import {withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import constantUtils from "../constant.js";
+import MuiAlert from '@material-ui/lab/Alert';
 const url = constantUtils.baseUrl;
 
 axios.defaults.withCredentials = true;
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const StyledFormControl= withStyles({
   root: {
@@ -26,10 +31,10 @@ export class StudentPage extends React.Component {
     this.state = {
       firstName: null,
       lastName: null,
-      email: null,
-      password: null,
+      middleName:null,
       classOpen:false,
       secOpen:false,
+      barOpen:false,
       rollNo: null,
       studentClass: null,
       studentSection: null,
@@ -55,7 +60,7 @@ export class StudentPage extends React.Component {
 
   handleOpen(e) {
     const {name} = e.target;
-    if(name == 'section'){
+    if(name == 'studentSection'){
       this.setState({secOpen: true})
     }
     else{
@@ -65,7 +70,7 @@ export class StudentPage extends React.Component {
 
   handleClose(e) {
     const {name} = e.target;
-    if(name == 'section'){
+    if(name == 'studentSection'){
       this.setState({secOpen: false})
     }
     else{
@@ -73,8 +78,17 @@ export class StudentPage extends React.Component {
     } 
   }
 
+  handleBar(isOpen){
+    if(isOpen){
+      this.setState({barOpen:true})
+    }
+    else{
+      this.setState({barOpen:false})
+    }
+  }
+
   handleSubmit(e) {
-    console.log("called")
+    
     let {firstName, middleName, lastName, studentClass, studentSection, rollNo} = this.state
     let name = firstName + " " + middleName + " " + lastName
     if(!middleName){
@@ -87,6 +101,7 @@ export class StudentPage extends React.Component {
     .then(response => {
       if (response.data.status == 'error') alert(response.data.msg)
       else {
+        this.handleBar(true)
         const { from } = this.props.location.state || { from: { pathname: "/student" } };
         this.props.history.push(from);  
       }    
@@ -214,12 +229,23 @@ render() {
            
             <div className="createAccount">
               <Button  variant="contained" color="primary"
+                       name = "submit"
                        onClick = {this.handleSubmit}
+
               >
               Submit</Button>
             </div>
           </form>
         </div>
+        { this.state.barOpen && (
+         <Snackbar open={this.state.barOpen} autoHideDuration={6000} >
+         <Alert  severity="success" >
+          Student added Successfuly!
+        </Alert>
+      </Snackbar>
+      )
+        }
+        
       </div>
     );
   }

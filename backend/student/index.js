@@ -13,6 +13,7 @@ async function addStudent(req, res, params) {
 	                 ?, ?)`;
 	let values = [name, studentClass, studentSection,  rollNo, schoolId];
 	let addStudentResp = await dbUtils.sqlExecutorAsync(req, res, statement, values);
+	
 	return addStudentResp;
 }
 
