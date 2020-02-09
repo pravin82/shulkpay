@@ -7,15 +7,24 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import {withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
-
+import axios from "axios";
 import "../index.css"
 import "./HomePage.scss";
+import constantUtils from "../constant.js";
+
+
+const url = constantUtils.baseUrl;
+
 
 const StyledFormControl= withStyles({
   root: {
     minWidth:"120px"
   }
 })(FormControl);
+
+const Result = ({results}) => {
+  return results.map(r => <div>{r}</div>);
+}
 
 
 class HomePage extends React.Component {
@@ -24,7 +33,8 @@ class HomePage extends React.Component {
         this.state = {
           classOpen:false,
           studentClass:null,
-          searchPhrase:null
+          searchPhrase:null,
+          results:[]
         }
         this.handleLogOut = this.handleLogOut.bind(this);
         this.handleAddStudent = this.handleAddStudent.bind(this);
@@ -32,6 +42,8 @@ class HomePage extends React.Component {
         this.handleClose = this.handleClose.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
+        this.handleSearchChange = this.handleSearchChange.bind(this);
+
 
 
     }
@@ -58,21 +70,25 @@ class HomePage extends React.Component {
         const { name, value } = e.target;
         this.setState({ [name]: value });
     }
+    handleSearchChange(searchPhrase){
+        this.setState({searchPhrase:searchPhrase})
+    }
     handleSearch(e){
         let {studentClass, searchPhrase} = this.state
         if(!studentClass){
           return
         }
-        let value = {studentClass:studentClass, searchPhrase:searchPhrase}
-        axios.get(url + "/student/studentSearch", values)
+        axios.get(url + "/student/studentSearch/?studentClass=" + studentClass + "&searchPhrase=" + searchPhrase)
         .then(response => {
             if (response.data.status == 'error') alert(response.data.msg)
             else {
+                this.setState({results: [0, 1, 2, 3, 4]})
                
             }    
-        })    
+        })
+    }    
 
-    }
+
 
 
     render() {
@@ -126,7 +142,8 @@ class HomePage extends React.Component {
            </StyledFormControl>
                <MuiThemeProvider>
                <SearchBar 
-                onChange={this.handleChange}
+                name = "searchPhrase"
+                onChange={this.handleSearchChange}
                 onRequestSearch={this.handleSearch}
                 style={{
                    width:800,
@@ -135,6 +152,7 @@ class HomePage extends React.Component {
                />
                </MuiThemeProvider>
                </div>
+               <Result results={this.state.results} />
             </div>
 
         );

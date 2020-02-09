@@ -3,7 +3,6 @@ const studentValidator = require("./validator");
 
 async function addStudent(req, res, params) {
 	const validatorResp = studentValidator.addStudentValidator(params);
-	console.log("session+++", req.session)
 	let {schoolId} = req.session
 	if (validatorResp.error) return validatorResp;
 	let { name, studentSection, studentClass, rollNo } = req.body;
@@ -19,10 +18,10 @@ async function addStudent(req, res, params) {
 
 async function searchStudent(req, res, params) {
 	const validatorResp = studentValidator.searchStudentValidator(params);
-	let {schoolId} = req.session
 	if (validatorResp.error) return validatorResp;
-	let { searchPhrase, studentClass } = req.body;
-	let statement = `select s.name, s.roll_no, cs.section
+	let {schoolId} = req.session
+	let { searchPhrase, studentClass } = req.query;
+	let statement = `select s.name, s.roll_no, s.id, cs.section
 	                 from students s
 	                 left join class_section cs on s.class_section_id = cs.id
 	                 where s.name like '${searchPhrase}%' and s.school_id = ?
