@@ -24,6 +24,18 @@ function addStudentValidator(params) {
   return validate(params, schema)
 }
 
+function searchStudentValidator(params) {
+  
+  const schema = Joi.object().keys({
+  searchPhrase: Joi.string().required(),
+  studentClass:Joi.string().required()
+  })
+  return validate(params, schema)
+}
+
+
+
 module.exports={
-	addStudentValidator
+	addStudentValidator,
+  searchStudentValidator
 }

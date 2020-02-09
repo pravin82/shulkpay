@@ -17,6 +17,23 @@ async function addStudent(req, res, params) {
 	return addStudentResp;
 }
 
+async function searchStudent(req, res, params) {
+	const validatorResp = studentValidator.searchStudentValidator(params);
+	let {schoolId} = req.session
+	if (validatorResp.error) return validatorResp;
+	let { searchPhrase, studentClass } = req.body;
+	let statement = `select s.name, s.roll_no, cs.section
+	                 from students s
+	                 left join class_section cs on s.class_section_id = cs.id
+	                 where s.name like '${searchPhrase}%' and s.school_id = ?
+	                 and cs.class = ?`;
+	let values = [schoolId, studentClass];
+	let addStudentResp = await dbUtils.sqlExecutorAsync(req, res, statement, values);
+	
+	return addStudentResp;
+}
+
 module.exports = {
-	addStudent
+	addStudent,
+	searchStudent
 };
