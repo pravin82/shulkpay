@@ -23,7 +23,15 @@ const StyledFormControl= withStyles({
 })(FormControl);
 
 const Result = ({results}) => {
-  return results.map(r => <div>{r}</div>);
+  return results.map(r => (
+    <div className = "student">
+    <div>{r.name}</div>
+    <div>{r.section}</div>
+    <div>{r.roll_no}</div>
+    </div>
+
+   ))
+
 }
 
 
@@ -82,7 +90,7 @@ class HomePage extends React.Component {
         .then(response => {
             if (response.data.status == 'error') alert(response.data.msg)
             else {
-                this.setState({results: [0, 1, 2, 3, 4]})
+                this.setState({results: response.data.data})
                
             }    
         })
