@@ -22,12 +22,17 @@ class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          classOpen:false
+          classOpen:false,
+          studentClass:null,
+          searchPhrase:null
         }
         this.handleLogOut = this.handleLogOut.bind(this);
         this.handleAddStudent = this.handleAddStudent.bind(this);
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
+
 
     }
 
@@ -44,11 +49,31 @@ class HomePage extends React.Component {
     }
 
     handleOpen(e) {
-      this.setState({classOpen:true}) 
+        this.setState({classOpen:true}) 
     }
     handleClose(e) {
-      this.setState({classOpen:false}) 
+        this.setState({classOpen:false}) 
     }
+    handleChange(e) {
+        const { name, value } = e.target;
+        this.setState({ [name]: value });
+    }
+    handleSearch(e){
+        let {studentClass, searchPhrase} = this.state
+        if(!studentClass){
+          return
+        }
+        let value = {studentClass:studentClass, searchPhrase:searchPhrase}
+        axios.get(url + "/student/studentSearch", values)
+        .then(response => {
+            if (response.data.status == 'error') alert(response.data.msg)
+            else {
+               
+            }    
+        })    
+
+    }
+
 
     render() {
     
@@ -78,7 +103,7 @@ class HomePage extends React.Component {
                 name = "studentClass"
                 onClose={this.handleClose}
                 onOpen={this.handleOpen}
-                value={this.state.class}
+                value={this.state.studentClass}
                 onChange={this.handleChange}
               >
             <MenuItem value="">
@@ -101,8 +126,8 @@ class HomePage extends React.Component {
            </StyledFormControl>
                <MuiThemeProvider>
                <SearchBar 
-                onChange={() => console.log('onChange')}
-                onRequestSearch={() => console.log('onRequestSearch')}
+                onChange={this.handleChange}
+                onRequestSearch={this.handleSearch}
                 style={{
                    width:800,
                    marginLeft:100
