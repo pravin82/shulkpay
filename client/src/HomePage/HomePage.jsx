@@ -25,9 +25,9 @@ const StyledFormControl= withStyles({
 const Result = ({results}) => {
   return results.map(r => (
     <div className = "student">
-    <div>{r.name}</div>
-    <div>{r.section}</div>
-    <div>{r.roll_no}</div>
+    <div className = "student-name"> Name :  {r.name}</div>
+    <div className = "student-section">Section : {r.section}</div>
+    <div>Roll No: {r.roll_no}</div>
     </div>
 
    ))
@@ -160,7 +160,9 @@ class HomePage extends React.Component {
                />
                </MuiThemeProvider>
                </div>
+               <div className = 'students'>
                <Result results={this.state.results} />
+               </div>
             </div>
 
         );

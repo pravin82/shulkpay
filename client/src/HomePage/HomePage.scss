@@ -33,8 +33,29 @@
   justify-content:center
 }
 
+.students {
+  margin-left:200px;
+  margin-top:100px
+}
+
 .student {
-  display:flex
+  display:flex;
+  margin:30px;
+  border-radius: 20px;
+  box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+  align-items:center;
+  height:40px;
+  width:80%
+}
+
+.student-name{
+  margin-right: 30px;
+  width:400px;
+  margin-left:10px
+}
+
+.student-section{
+  margin-right: 50px
 }
 
 
