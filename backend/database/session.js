@@ -2,19 +2,21 @@
 
 const session = require("express-session");
 const uuid = require("uuid/v4");
-/*const AWS = require("aws-sdk");
+const AWS = require("aws-sdk");
 const DynamoDBStore = require("connect-dynamodb")({
   session: session
 });
 
+/*
 AWS.config.region = "ap-south-1";
 
 const dynamoDBConfig = {
-  table: "arzooo-session",
+  table: "shulkpay-session",
   client: new AWS.DynamoDB(),
   AWSRegion: "ap-south-1",
   reapInterval: 3600 * 1000
 };
+
 */
 const globalSessionConfig = {
   cookie: {
@@ -38,7 +40,9 @@ module.exports = function() {
   let envConfig = {
     store: session.MemoryStore()
   };
-  /*
+ 
+/*
+
   if (!("ENVIRONMENT" in process.env && process.env.ENVIRONMENT === "local")) {
     envConfig.store = new DynamoDBStore(dynamoDBConfig);
     envConfig.cookie = {

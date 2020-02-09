@@ -3,7 +3,7 @@ var cors = require("cors");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const app = (module.exports = express());
-app.use(cors());
+
 global.__base = __dirname + "/";
 const session = require(`${__base}/database/session`);
 const db = require(`${__base}/database/mysql`);
@@ -14,6 +14,13 @@ app.use(logger("dev"));
 const PORT = process.env.npm_package_config_port || 4000;
 const API_PORT = 3001;
 const apiRouter = require(`${__base}/routes/router`);
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true,
+
+}
+app.use(cors(corsOptions));
 
 app.use(session());
 app.disable("view cache");
@@ -30,6 +37,7 @@ db.connect(null, err => {
 		});
 	}
 });
+
 
 app.use((req, res) => {
 	return res
