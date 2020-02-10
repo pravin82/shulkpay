@@ -45,8 +45,6 @@ class HomePage extends React.Component {
           classOpen:false,
           studentClass:null,
           searchPhrase:null,
-          studentDetail:false,
-          studentObj:null,
           results:[]
         }
         this.handleLogOut = this.handleLogOut.bind(this);
@@ -71,9 +69,10 @@ class HomePage extends React.Component {
         this.props.history.push('/login');  
     }
     handleStudentDetail(r) {
-       this.setState({studentObj:r})
-       this.setState({studentDetail:true})
-      // this.props.history.push('/student/' + r.id); 
+       this.props.history.push({
+          pathname: '/student/' + r.id,
+          state: { studentObj: r }
+      })
 
     }
     
@@ -113,11 +112,8 @@ class HomePage extends React.Component {
 
 
     render() {
-      console.log("StateDetai++++", this.state.studentDetail)
-    
         return (
-           this.state.studentDetail ? (<StudentDetailPage studentObj = {this.state.studentObj}/>):
-         (
+          
             <div>
             <div className="parent">
             <div className = "school">
@@ -182,10 +178,8 @@ class HomePage extends React.Component {
               Logout
              </Button>
             </div>
-            </div>
-            )
+            </div>        
             
-
         );
     }
 }

@@ -10,7 +10,6 @@ const url = constantUtils.baseUrl;
 
 export class StudentDetailPage extends React.Component {
 	constructor(props) {
-       console.log("propsDeta++++", props)
        super(props);
        this.state = {
       
@@ -18,8 +17,7 @@ export class StudentDetailPage extends React.Component {
     }
 
     componentDidMount() {
-    	console.log("studentIdparamas++++", this.props.studentObj.id)
-        axios.get(url + "/student/studentDetail/?studentId=" + this.props.studentObj.id)
+        axios.get(url + "/student/studentDetail/?studentId=" + this.props.location.state.studentObj.id)
         .then(response => {
             if (response.data.status == 'error') alert(response.data.msg)
             else {
