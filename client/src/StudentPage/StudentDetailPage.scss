@@ -4,3 +4,16 @@
 	margin-right:30%;
 	justify-content:space-between
 }
+
+.button {
+	display:flex;
+	flex-direction: column;
+	width:140px;
+	height:90px;
+	justify-content:space-between	
+
+}
+
+.button-due {
+	background-color: #FF7F50
+}
