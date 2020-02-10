@@ -15,9 +15,10 @@ export class StudentDetailPage extends React.Component {
       
        }
     }
+    studentObj = this.props.location.state.studentObj
 
     componentDidMount() {
-        axios.get(url + "/student/studentDetail/?studentId=" + this.props.location.state.studentObj.id)
+        axios.get(url + "/student/studentDetail/?studentId=" + this.studentObj.id)
         .then(response => {
             if (response.data.status == 'error') alert(response.data.msg)
             else {
@@ -31,9 +32,17 @@ export class StudentDetailPage extends React.Component {
     render() {
 
     	return (
-    		<div>
-    		Hi there
-    		</div>
+            <div>
+            <div>
+            <h1> {this.studentObj.name}</h1>
+            </div>
+            <div className = "detail">
+            <h2> Roll No : {this.studentObj.roll_no} </h2>
+            <h2> Class: {this.studentObj.class} </h2>
+            <h2> Section : {this.studentObj.section}</h2>
+            </div>
+            </div>
+    		
 
     	)
     }
