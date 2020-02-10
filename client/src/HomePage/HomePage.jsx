@@ -11,6 +11,7 @@ import axios from "axios";
 import "../index.css"
 import "./HomePage.scss";
 import constantUtils from "../constant.js";
+import {StudentDetailPage} from "../StudentPage/StudentDetailPage"
 
 
 const url = constantUtils.baseUrl;
@@ -25,7 +26,7 @@ const StyledFormControl= withStyles({
 const Result = ({thisR}) => {
   return thisR.state.results.map(r => (
     <div className = "student"
-         onClick = {() => thisR.handleStudentDetail(r.id)}
+         onClick = {() => thisR.handleStudentDetail(r)}
     >
     <div className = "student-name"> Name :  {r.name}</div>
     <div className = "student-section">Section : {r.section}</div>
@@ -44,6 +45,8 @@ class HomePage extends React.Component {
           classOpen:false,
           studentClass:null,
           searchPhrase:null,
+          studentDetail:false,
+          studentObj:null,
           results:[]
         }
         this.handleLogOut = this.handleLogOut.bind(this);
@@ -67,8 +70,11 @@ class HomePage extends React.Component {
         localStorage.removeItem('user');
         this.props.history.push('/login');  
     }
-    handleStudentDetail(e) {
-       this.props.history.push('/student/' + e)
+    handleStudentDetail(r) {
+       this.setState({studentObj:r})
+       this.setState({studentDetail:true})
+      // this.props.history.push('/student/' + r.id); 
+
     }
     
     handleAddStudent(e) {
@@ -107,8 +113,11 @@ class HomePage extends React.Component {
 
 
     render() {
+      console.log("StateDetai++++", this.state.studentDetail)
     
         return (
+           this.state.studentDetail ? (<StudentDetailPage studentObj = {this.state.studentObj}/>):
+         (
             <div>
             <div className="parent">
             <div className = "school">
@@ -174,6 +183,8 @@ class HomePage extends React.Component {
              </Button>
             </div>
             </div>
+            )
+            
 
         );
     }

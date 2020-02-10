@@ -21,6 +21,22 @@ async function searchStudent(req, res, params) {
 	if (validatorResp.error) return validatorResp;
 	let {schoolId} = req.session
 	let { searchPhrase, studentClass } = req.query;
+	let statement = `select s.name, s.roll_no, s.id, cs.section, cs.class
+	                 from students s
+	                 left join class_section cs on s.class_section_id = cs.id
+	                 where s.name like '${searchPhrase}%' and s.school_id = ?
+	                 and cs.class = ?`;
+	let values = [schoolId, studentClass];
+	let addStudentResp = await dbUtils.sqlExecutorAsync(req, res, statement, values);
+	
+	return addStudentResp;
+}
+
+async function getStudentDetail(req, res, params) {
+	const validatorResp = studentValidator.studentDetailValidator(params);
+	if (validatorResp.error) return validatorResp;
+	let {schoolId} = req.session
+	let {studentId } = req.query;
 	let statement = `select s.name, s.roll_no, s.id, cs.section
 	                 from students s
 	                 left join class_section cs on s.class_section_id = cs.id
@@ -31,6 +47,7 @@ async function searchStudent(req, res, params) {
 	
 	return addStudentResp;
 }
+
 
 module.exports = {
 	addStudent,
