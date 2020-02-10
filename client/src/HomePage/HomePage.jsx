@@ -22,9 +22,11 @@ const StyledFormControl= withStyles({
   }
 })(FormControl);
 
-const Result = ({results}) => {
-  return results.map(r => (
-    <div className = "student">
+const Result = ({thisR}) => {
+  return thisR.state.results.map(r => (
+    <div className = "student"
+         onClick = {() => thisR.handleStudentDetail(r.id)}
+    >
     <div className = "student-name"> Name :  {r.name}</div>
     <div className = "student-section">Section : {r.section}</div>
     <div>Roll No: {r.roll_no}</div>
@@ -46,6 +48,7 @@ class HomePage extends React.Component {
         }
         this.handleLogOut = this.handleLogOut.bind(this);
         this.handleAddStudent = this.handleAddStudent.bind(this);
+        this.handleStudentDetail = this.handleStudentDetail.bind(this);
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -64,6 +67,11 @@ class HomePage extends React.Component {
         localStorage.removeItem('user');
         this.props.history.push('/login');  
     }
+    handleStudentDetail(e) {
+       console.log("ede+++", e)
+       this.props.history.push('/student')
+    }
+    
     handleAddStudent(e) {
         this.props.history.push('/student'); 
     }
@@ -158,7 +166,7 @@ class HomePage extends React.Component {
                </MuiThemeProvider>
                </div>
                <div className = 'students'>
-               <Result results={this.state.results} />
+               <Result thisR={this}  />
                </div>
             </div>
             <div className = 'btn-logout'>
