@@ -178,7 +178,7 @@ render() {
                 name = "studentClass"
                 onClose={this.handleClose}
                 onOpen={this.handleOpen}
-                value={this.state.class}
+                value={this.state.studentClass}
                 onChange={this.handleChange}
               >
             <MenuItem value="">
@@ -209,7 +209,7 @@ render() {
                 open={this.state.SecOpen}
                 onClose={this.handleClose}
                 onOpen={this.handleOpen}
-                value={this.state.section}
+                value={this.state.studentSection}
                 onChange={this.handleChange}
               >
             <MenuItem value="">
