@@ -68,8 +68,7 @@ class HomePage extends React.Component {
         this.props.history.push('/login');  
     }
     handleStudentDetail(e) {
-       console.log("ede+++", e)
-       this.props.history.push('/student')
+       this.props.history.push('/student/' + e)
     }
     
     handleAddStudent(e) {
