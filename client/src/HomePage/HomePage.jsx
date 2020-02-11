@@ -22,7 +22,6 @@ const StyledFormControl= withStyles({
     minWidth:"120px"
   }
 })(FormControl);
-
 const Result = ({thisR}) => {
   return thisR.state.results.map(r => (
     <div className = "student"
