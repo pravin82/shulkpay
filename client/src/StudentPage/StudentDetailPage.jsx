@@ -90,6 +90,58 @@ function FeeModal(props) {
             </Dialog>
 }
 
+function DueModal(props) {
+  return <Dialog 
+            open={true} 
+            onClose={props.this.handleDueClose}
+            aria-labelledby="form-dialog-title"
+            fullWidth = "true"
+          >
+          <DialogTitle id="form-dialog-title">Add Due</DialogTitle>
+          <DialogContent>
+          <div className = "form-fee">
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Amount"
+            type="number"
+            onChange={props.this.handleChange}
+            name = "amount"
+           />
+            <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Remarks"
+            type="text"
+            onChange={props.this.handleChange}
+            name = "remarks"
+           />
+          
+            </div>
+            </DialogContent>
+            <DialogActions>
+            <Button onClick={props.this.handleDueClose} color="primary">
+            Cancel
+            </Button>
+            <div style = {{
+               marginLeft:80
+            }}>
+            <Button 
+              onClick={props.this.handleAddDue}
+              style = {{
+                backgroundColor:"#FF4500"     
+                }}
+            >
+            Add Due
+            </Button>
+            </div>
+            </DialogActions>
+            </Dialog>
+}
+
+
 
 
 export class StudentDetailPage extends React.Component {
@@ -100,7 +152,8 @@ export class StudentDetailPage extends React.Component {
         amount:null,
         mop:null,
         barOpen:false,
-        dueOpen:false
+        dueOpen:false,
+        remarks:null
        }
 
       this.handleFeeOpen= this.handleFeeOpen.bind(this);
@@ -175,6 +228,7 @@ export class StudentDetailPage extends React.Component {
 
 
     render() {
+      console.log("dueOpen+++", this.state.dueOpen)
 
     	return (
             <div>
@@ -204,8 +258,10 @@ export class StudentDetailPage extends React.Component {
                       >
               Pay Fee
              </Button>
-            
+           
         {this.state.feeOpen && (<FeeModal this = {this}/>)}
+        {this.state.dueOpen && (<DueModal this = {this}/>)}
+
         { this.state.barOpen && (
          <Snackbar open={this.state.barOpen} autoHideDuration={6000} onClose = {this.handleBarClose} >
          <Alert  severity="success" onClose = {this.handleBarClose} >
