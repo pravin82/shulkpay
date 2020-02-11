@@ -35,6 +35,61 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
+function FeeModal(props) {
+  return <Dialog 
+            open={true} 
+            onClose={props.this.handleFeeClose}
+            aria-labelledby="form-dialog-title"
+            fullWidth = "true"
+          >
+          <DialogTitle id="form-dialog-title">Pay Fee</DialogTitle>
+          <DialogContent>
+          <div className = "form-fee">
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Amount"
+            type="number"
+            onChange={props.this.handleChange}
+            name = "amount"
+           />
+           <FormControl component="fieldset" >
+           <FormLabel component="legend">MOP</FormLabel>
+           <RadioGroup
+              aria-label="MOP" name="mop" 
+              value={props.this.state.value} 
+              onChange={props.this.handleChange}
+              style = {{
+                flexDirection: "row"
+              }} >
+            <FormControlLabel value="CASH" control={<Radio />} label="CASH" />
+            <FormControlLabel value="ONLINE" control={<Radio />} label="ONLINE" />
+
+            </RadioGroup>
+            </FormControl>
+            </div>
+            </DialogContent>
+            <DialogActions>
+            <Button onClick={props.this.handleFeeClose} color="primary">
+            Cancel
+            </Button>
+            <div style = {{
+               marginLeft:80
+            }}>
+            <Button 
+              onClick={props.this.handleFeePay}
+              style = {{
+                backgroundColor:"#85bf31"     
+                }}
+            >
+            Pay Fee
+            </Button>
+            </div>
+            </DialogActions>
+            </Dialog>
+}
+
 
 
 export class StudentDetailPage extends React.Component {
@@ -44,11 +99,14 @@ export class StudentDetailPage extends React.Component {
         feeOpen: false,
         amount:null,
         mop:null,
-        barOpen:false
+        barOpen:false,
+        dueOpen:false
        }
 
       this.handleFeeOpen= this.handleFeeOpen.bind(this);
       this.handleFeeClose= this.handleFeeClose.bind(this);
+      this.handleDueOpen= this.handleDueOpen.bind(this);
+      this.handleDueClose= this.handleDueClose.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.handleFeePay = this.handleFeePay.bind(this);
 
@@ -73,8 +131,6 @@ export class StudentDetailPage extends React.Component {
 
     handleChange(e) {
         const { name, value } = e.target;
-        console.log("name+++", name)
-        console.log("value+++", value)
         this.setState({ [name]: value });
     }
 
@@ -84,6 +140,12 @@ export class StudentDetailPage extends React.Component {
     }
     handleFeeClose() {
       this.setState({feeOpen:false})
+    }
+     handleDueOpen() {
+      this.setState({dueOpen:true})
+    }
+    handleDueClose() {
+      this.setState({dueOpen:false})
     }
 
     handleBarClose = (event, reason) => {
@@ -96,8 +158,6 @@ export class StudentDetailPage extends React.Component {
 
     handleFeePay(e) {
       const {amount, mop} = this.state
-      console.log("mop+++", mop)
-      console.log("typeOf+++", typeof amount)
       const studentId = this.studentObj.id
       let values = {amount: amount, mop: mop, studentId:studentId}                       
       
@@ -128,7 +188,7 @@ export class StudentDetailPage extends React.Component {
             </div>
             <div className = "button">
             <Button variant="contained" 
-                    onClick={this.handleAddDue}
+                    onClick={this.handleDueOpen}
                     style = {{
                         backgroundColor:"#FF4500"
                     }}
@@ -145,59 +205,7 @@ export class StudentDetailPage extends React.Component {
               Pay Fee
              </Button>
             
-             <Dialog open={this.state.feeOpen} 
-                    onClose={this.handleFeeClose}
-                    aria-labelledby="form-dialog-title"
-                    fullWidth = "true"
-                    
-
-               >
-             <DialogTitle id="form-dialog-title">Pay Fee</DialogTitle>
-            <DialogContent>
-            <div className = "form-fee">
-           <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Amount"
-            type="number"
-            onChange={this.handleChange}
-            name = "amount"
-           />
-           <FormControl component="fieldset" >
-           <FormLabel component="legend">MOP</FormLabel>
-           <RadioGroup aria-label="MOP" name="mop" 
-                      value={this.state.value} 
-                      onChange={this.handleChange}
-                      style = {{
-                        flexDirection: "row"
-                      }} >
-          <FormControlLabel value="CASH" control={<Radio />} label="CASH" />
-          <FormControlLabel value="ONLINE" control={<Radio />} label="ONLINE" />
-
-        </RadioGroup>
-      </FormControl>
- 
-            </div>
-         </DialogContent>
-         <DialogActions>
-          <Button onClick={this.handleFeeClose} color="primary">
-            Cancel
-          </Button>
-          <div style = {{
-               marginLeft:80
-          }}>
-              <Button onClick={this.handleFeePay}
-                  style = {{
-                        backgroundColor:"#85bf31"
-                        
-                    }}
-          >
-            Pay Fee
-          </Button>
-          </div>
-        </DialogActions>
-        </Dialog>
+        {this.state.feeOpen && (<FeeModal this = {this}/>)}
         { this.state.barOpen && (
          <Snackbar open={this.state.barOpen} autoHideDuration={6000} onClose = {this.handleBarClose} >
          <Alert  severity="success" onClose = {this.handleBarClose} >
