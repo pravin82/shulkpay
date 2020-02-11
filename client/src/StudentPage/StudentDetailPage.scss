@@ -1,0 +1,28 @@
+.detail {
+	display: flex;
+	margin-left:30%;
+	margin-right:30%;
+	justify-content:space-between
+}
+
+.button {
+	display:flex;
+	flex-direction: column;
+	width:140px;
+	height:90px;
+	justify-content:space-between	
+
+}
+
+.button-due {
+	background-color: #FF7F50
+}
+
+.form-fee {
+	display: flex;
+	justify-content: space-between
+}
+
+.button-fee {
+	margin-left: 80px
+}

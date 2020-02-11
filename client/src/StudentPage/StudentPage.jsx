@@ -87,6 +87,13 @@ export class StudentPage extends React.Component {
     }
   }
 
+  handleBarClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+    this.setState({barOpen:false})
+    }
+
   handleSubmit(e) {
     
     let {firstName, middleName, lastName, studentClass, studentSection, rollNo} = this.state
@@ -238,8 +245,8 @@ render() {
           </form>
         </div>
         { this.state.barOpen && (
-         <Snackbar open={this.state.barOpen} autoHideDuration={6000} >
-         <Alert  severity="success" >
+         <Snackbar open={this.state.barOpen} autoHideDuration={6000} onClose = {this.handleBarClose} >
+         <Alert  severity="success" onClose = {this.handleBarClose} >
           Student added Successfuly!
         </Alert>
       </Snackbar>

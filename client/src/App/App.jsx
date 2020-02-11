@@ -5,6 +5,8 @@ import { PrivateRoute } from '../components/PrivateRoute';
 import { HomePage } from '../HomePage/HomePage';
 import { MainPage } from '../LoginPage/MainPage';
 import { StudentPage } from '../StudentPage/StudentPage';
+import { StudentDetailPage } from '../StudentPage/StudentDetailPage';
+
 
 
 class App extends React.Component {
@@ -17,7 +19,8 @@ class App extends React.Component {
                             <div>
                                 <PrivateRoute exact path="/" component={HomePage} />
                                 <Route  path="/login" component={MainPage} />
-                                <Route  path="/student" component={StudentPage} />
+                                <Route exact  path="/student" component={StudentPage} />
+                                <Route  path="/student/:studentId" component={StudentDetailPage} />
                             </div>
                         </Router>
                     </div>
