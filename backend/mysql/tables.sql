@@ -97,6 +97,12 @@ insert into class_section(class, section) values("10", "B");
 insert into class_section(class, section) values("10", "C");
 
 
+--11th Frbruary 2020 created by Pravin
+
+alter table payments add column remarks varchar(255);
+
+
+
 
 
 

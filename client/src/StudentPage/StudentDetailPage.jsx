@@ -19,6 +19,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import {withStyles } from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
 
 const url = constantUtils.baseUrl;
 
@@ -28,17 +31,29 @@ const StyledFormGroup= withStyles({
   }
 })(FormControl);
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 
 
 export class StudentDetailPage extends React.Component {
 	constructor(props) {
        super(props);
        this.state = {
-        feeOpen: false
+        feeOpen: false,
+        amount:null,
+        mop:null,
+        barOpen:false
        }
 
-      this.handleFeeOpen = this.handleFeeOpen.bind(this);
-      this.handleFeeClose = this.handleFeeClose.bind(this);
+      this.handleFeeOpen= this.handleFeeOpen.bind(this);
+      this.handleFeeClose= this.handleFeeClose.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+      this.handleFeePay = this.handleFeePay.bind(this);
+
+
+      
 
 
     }
@@ -55,12 +70,40 @@ export class StudentDetailPage extends React.Component {
         })
        
     }
+
+    handleChange(e) {
+        const { name, value } = e.target;
+        console.log("name+++", name)
+        console.log("value+++", value)
+        this.setState({ [name]: value });
+    }
+
+  
     handleFeeOpen() {
       this.setState({feeOpen:true})
     }
-
     handleFeeClose() {
       this.setState({feeOpen:false})
+    }
+    
+
+    handleFeePay(e) {
+      const {amount, mop} = this.state
+      console.log("mop+++", mop)
+      console.log("typeOf+++", typeof amount)
+      const studentId = this.studentObj.id
+      let values = {amount: amount, mop: mop, studentId:studentId}                       
+      
+      axios.post(url + "/fee/payFee", values)
+      .then(response => {
+        if (response.data.status == 'error') alert(response.data.msg)
+        else {
+           this.setState({barOpen:true})
+           this.handleFeeClose()
+        }    
+
+      })    
+
     }
 
 
@@ -111,10 +154,12 @@ export class StudentDetailPage extends React.Component {
             id="name"
             label="Amount"
             type="number"
+            onChange={this.handleChange}
+            name = "amount"
            />
            <FormControl component="fieldset" >
            <FormLabel component="legend">MOP</FormLabel>
-           <RadioGroup aria-label="MOP" name="MOP" 
+           <RadioGroup aria-label="MOP" name="mop" 
                       value={this.state.value} 
                       onChange={this.handleChange}
                       style = {{
@@ -135,7 +180,7 @@ export class StudentDetailPage extends React.Component {
           <div style = {{
                marginLeft:80
           }}>
-              <Button onClick={this.handleFeeClose}
+              <Button onClick={this.handleFeePay}
                   style = {{
                         backgroundColor:"#85bf31"
                         
@@ -145,6 +190,13 @@ export class StudentDetailPage extends React.Component {
           </Button>
           </div>
         </DialogActions>
+         { this.state.barOpen && (
+         <Snackbar open={this.state.barOpen} autoHideDuration={6000} >
+         <Alert  severity="success" >
+          Student added Successfuly!
+        </Alert>
+        </Snackbar>
+        )}
         </Dialog>
     
 
