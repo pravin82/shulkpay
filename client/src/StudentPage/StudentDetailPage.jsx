@@ -85,6 +85,13 @@ export class StudentDetailPage extends React.Component {
     handleFeeClose() {
       this.setState({feeOpen:false})
     }
+
+    handleBarClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+    this.setState({barOpen:false})
+    }
     
 
     handleFeePay(e) {
@@ -190,14 +197,14 @@ export class StudentDetailPage extends React.Component {
           </Button>
           </div>
         </DialogActions>
-         { this.state.barOpen && (
-         <Snackbar open={this.state.barOpen} autoHideDuration={6000} >
-         <Alert  severity="success" >
-          Student added Successfuly!
+        </Dialog>
+        { this.state.barOpen && (
+         <Snackbar open={this.state.barOpen} autoHideDuration={6000} onClose = {this.handleBarClose} >
+         <Alert  severity="success" onClose = {this.handleBarClose} >
+          Fees Paid Successfuly!
         </Alert>
         </Snackbar>
         )}
-        </Dialog>
     
 
             </div>
