@@ -31,6 +31,26 @@ const StyledFormGroup= withStyles({
   }
 })(FormControl);
 
+function formatDateTime(dateTime) {
+  console.log("date!+++", dateTime)
+  var dateUTC = new Date(dateTime);
+  return((dateUTC.toString()).substring(0,9))  
+}
+
+const Transaction = ({thisR}) => {
+  return thisR.state.results.map(r => (
+    <div className = "transaction"
+    >
+    <div className = "date" >  {formatDateTime(r.created_on)}</div>
+    <div className = "amount">{r.amount}</div>
+    {r.remarks ? (<div>{r.remarks}</div>):<div>Nothing</div> }
+    
+    </div>
+
+   ))
+
+}
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -276,6 +296,9 @@ export class StudentDetailPage extends React.Component {
             {this.state.results[0] &&
               ( <h1>Total Due:  {Math.abs(this.state.results[0].total_due)}</h1>)
             }
+            </div>
+            <div className = 'transactions'>
+               <Transaction thisR={this}  />
             </div>
             <div className = "button">
             <Button variant="contained" 

@@ -28,3 +28,20 @@
 .button-fee {
 	margin-left: 80px
 }
+
+.transactions {
+	margin-top: 120px
+}
+
+.transaction {
+	display: flex;
+	margin-bottom:10px
+}
+.amount {
+	min-width:100px;
+	text-align:center
+}
+
+.date {
+	min-width:300px
+}
