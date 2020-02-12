@@ -151,7 +151,8 @@ export class StudentDetailPage extends React.Component {
         feeOpen: false,
         amount:null,
         mop:null,
-        barOpen:false,
+        feeBarOpen:false,
+        dueBarOpen:false,
         dueOpen:false,
         remarks:null
        }
@@ -162,6 +163,7 @@ export class StudentDetailPage extends React.Component {
       this.handleDueClose= this.handleDueClose.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.handleFeePay = this.handleFeePay.bind(this);
+      this.handleAddDue = this.handleAddDue.bind(this);
 
 
       
@@ -201,11 +203,18 @@ export class StudentDetailPage extends React.Component {
       this.setState({dueOpen:false})
     }
 
-    handleBarClose = (event, reason) => {
+    handleFeeBarClose = (event, reason) => {
       if (reason === 'clickaway') {
         return;
       }
-    this.setState({barOpen:false})
+    this.setState({feeBarOpen:false})
+    }
+
+     handleDueBarClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+    this.setState({dueBarOpen:false})
     }
     
 
@@ -218,8 +227,25 @@ export class StudentDetailPage extends React.Component {
       .then(response => {
         if (response.data.status == 'error') alert(response.data.msg)
         else {
-           this.setState({barOpen:true})
+           this.setState({feeBarOpen:true})
            this.handleFeeClose()
+        }    
+
+      })    
+
+    }
+
+    handleAddDue(e) {
+      const {amount, remarks} = this.state
+      const studentId = this.studentObj.id
+      let values = {amount: -amount, mop: remarks, studentId:studentId}                       
+      
+      axios.post(url + "/fee/payFee", values)
+      .then(response => {
+        if (response.data.status == 'error') alert(response.data.msg)
+        else {
+           this.setState({dueBarOpen:true})
+           this.handleDueClose()
         }    
 
       })    
@@ -228,7 +254,6 @@ export class StudentDetailPage extends React.Component {
 
 
     render() {
-      console.log("dueOpen+++", this.state.dueOpen)
 
     	return (
             <div>
@@ -262,10 +287,19 @@ export class StudentDetailPage extends React.Component {
         {this.state.feeOpen && (<FeeModal this = {this}/>)}
         {this.state.dueOpen && (<DueModal this = {this}/>)}
 
-        { this.state.barOpen && (
-         <Snackbar open={this.state.barOpen} autoHideDuration={6000} onClose = {this.handleBarClose} >
-         <Alert  severity="success" onClose = {this.handleBarClose} >
+        { this.state.feeBarOpen && (
+         <Snackbar open={this.state.feeBarOpen} autoHideDuration={6000} onClose = {this.handleFeeBarClose} >
+         <Alert  severity="success" onClose = {this.handleFeeBarClose} >
           Fees Paid Successfuly!
+        </Alert>
+        </Snackbar>
+        )}
+         { this.state.dueBarOpen && (
+         <Snackbar open={this.state.dueBarOpen} autoHideDuration={6000} onClose = {this.handleDueBarClose} >
+         <Alert  severity="success" 
+                 onClose = {this.handleDueBarClose} 
+                 style = {{backgroundColor:'#FF4500'}}>
+          Due Added Successfuly!
         </Alert>
         </Snackbar>
         )}
