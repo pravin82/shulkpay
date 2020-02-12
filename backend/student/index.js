@@ -50,7 +50,8 @@ async function getStudentDetail(req, res, params) {
 					 select student_id, amount, remarks, created_on, updated_on
 					 from payments where student_id = ?
 					 ) q2
-					 where q1.student_id = q2.student_id`;
+					 where q1.student_id = q2.student_id
+					 order by q2.created_on desc`;
 	                 
 	let values = [studentId, studentId];
 	let detailResp = await dbUtils.sqlExecutorAsync(req, res, statement, values);

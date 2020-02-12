@@ -154,7 +154,8 @@ export class StudentDetailPage extends React.Component {
         feeBarOpen:false,
         dueBarOpen:false,
         dueOpen:false,
-        remarks:null
+        remarks:null,
+        results:[]
        }
 
       this.handleFeeOpen= this.handleFeeOpen.bind(this);
@@ -254,6 +255,12 @@ export class StudentDetailPage extends React.Component {
 
 
     render() {
+      if(this.state.results[0]) {
+       console.log("results+++", (this.state.results[0]).amount)
+
+      }
+      
+      console.log("type++", typeof (this.state.results[0]) )
 
     	return (
             <div>
@@ -264,6 +271,11 @@ export class StudentDetailPage extends React.Component {
             <h2> Roll No : {this.studentObj.roll_no} </h2>
             <h2> Class: {this.studentObj.class} </h2>
             <h2> Section : {this.studentObj.section}</h2>
+            </div>
+            <div>
+            {this.state.results[0] &&
+              ( <h1>Total Due:  {Math.abs(this.state.results[0].total_due)}</h1>)
+            }
             </div>
             <div className = "button">
             <Button variant="contained" 
