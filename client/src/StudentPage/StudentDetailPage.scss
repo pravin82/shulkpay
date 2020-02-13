@@ -10,7 +10,9 @@
 	flex-direction: column;
 	width:140px;
 	height:90px;
-	justify-content:space-between	
+	justify-content:space-between;	
+	top:20%;
+	position:absolute
 
 }
 
@@ -25,4 +27,41 @@
 
 .button-fee {
 	margin-left: 80px
+}
+
+.transactions {
+	margin-top: 120px;
+	margin-left:360px;
+	margin-right:360px;
+}
+
+.transaction-due {
+	display: flex;
+	margin:10px;
+    box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+    align-items:center;
+    height:40px;
+    width:80%;
+    background-color:#FF4500
+
+}
+.transaction-fee {
+	display: flex;
+	margin:10px;
+    box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+    align-items:center;
+    height:40px;
+    width:80%;
+    background-color:#85bf31
+    
+}
+.amount {
+	min-width:100px;
+	text-align:center;
+	margin-right:100px
+}
+
+.date {
+	min-width:150px;
+	margin-left:10px
 }
