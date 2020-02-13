@@ -11,6 +11,7 @@ import {withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import constantUtils from "../constant.js";
 import MuiAlert from '@material-ui/lab/Alert';
+import Typography from '@material-ui/core/Typography';
 const url = constantUtils.baseUrl;
 
 axios.defaults.withCredentials = true;
@@ -50,6 +51,7 @@ export class StudentPage extends React.Component {
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleHomeLink = this.handleHomeLink.bind(this);
 
   }
 
@@ -116,6 +118,10 @@ export class StudentPage extends React.Component {
     })    
   }
 
+  handleHomeLink(e) {
+     this.props.history.push('/'); 
+  }
+
   
 
 
@@ -127,6 +133,10 @@ render() {
 
     return (
       <div className="wrapper">
+      <div className = "link"
+            onClick = {this.handleHomeLink}>
+       Shulkpay
+      </div>
         <div className="form-wrapper">
           <h1 className ="add">Add Student</h1>
           <form onSubmit={this.handleSubmit} noValidate>

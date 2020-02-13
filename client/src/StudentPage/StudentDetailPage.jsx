@@ -182,6 +182,8 @@ export class StudentDetailPage extends React.Component {
       this.handleChange = this.handleChange.bind(this);
       this.handleFeePay = this.handleFeePay.bind(this);
       this.handleAddDue = this.handleAddDue.bind(this);
+      this.handleHomeLink = this.handleHomeLink.bind(this);
+
 
 
       
@@ -270,17 +272,20 @@ export class StudentDetailPage extends React.Component {
 
     }
 
+    handleHomeLink(e) {
+     this.props.history.push('/'); 
+    }
+
 
     render() {
-      if(this.state.results[0]) {
-       console.log("results+++", (this.state.results[0]).amount)
-
-      }
-      
-      console.log("type++", typeof (this.state.results[0]) )
-
+     
     	return (
             <div>
+             <div className = "link"
+                  onClick = {this.handleHomeLink}
+             >
+            Shulkpay
+            </div>
             <div>
             <h1> {this.studentObj.name}</h1>
             </div>
