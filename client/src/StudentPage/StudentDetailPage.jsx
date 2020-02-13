@@ -32,19 +32,16 @@ const StyledFormGroup= withStyles({
 })(FormControl);
 
 function formatDateTime(dateTime) {
-  console.log("date!+++", dateTime)
   var dateUTC = new Date(dateTime);
-  return((dateUTC.toString()).substring(0,9))  
+  return((dateUTC.toString()).substring(0,10))  
 }
 
 const Transaction = ({thisR}) => {
   return thisR.state.results.map(r => (
-    <div className = "transaction"
-    >
+    <div className = {r.amount > 0 ? "transaction-fee": "transaction-due"}>
     <div className = "date" >  {formatDateTime(r.created_on)}</div>
-    <div className = "amount">{r.amount}</div>
+    <div className = "amount">{Math.abs(r.amount)}</div>
     {r.remarks ? (<div>{r.remarks}</div>):<div>Nothing</div> }
-    
     </div>
 
    ))
