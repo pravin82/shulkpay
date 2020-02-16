@@ -53,7 +53,9 @@ function DueModal(props) {
           <DialogTitle id="form-dialog-title">Add Due</DialogTitle>
           <DialogContent>
           <div className = "form-fee">
-          {<StudentClass this = {props.this}/>}
+          <StyledFormControl>
+          {<StudentClass this = {props.this} dueClass = {true}/>}
+          </StyledFormControl>
           <TextField
             autoFocus
             margin="dense"
@@ -96,27 +98,25 @@ function DueModal(props) {
 }
 
 function StudentClass(props) {
+    console.log("props++", props)
+    console.log("dueClass++", props.this.state.dueClass)
     return  <div>
             <InputLabel id="demo-controlled-open-select-label"
                          style = {{width: '100%'}}
              >
             Class
             </InputLabel>
-             
              <Select
                 labelId="demo-controlled-open-select-label"
                 id="demo-controlled-open-select"
                 open={props.this.state.Classopen}
-                name = "studentClass"
+                name = {props.dueClass ? "dueClass" : "studentClass"}
                 style = {{width: '100%'}}
                 onClose={props.this.handleClose}
                 onOpen={props.this.handleOpen}
-                value={props.this.state.studentClass}
+                value={props.dueClass ? props.this.state.dueClass : props.this.state.studentClass }
                 onChange={props.this.handleChange}
               >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
             <MenuItem value={'NURSERY'}>Nursery</MenuItem>
             <MenuItem value={'LKG'}>LKG</MenuItem>
             <MenuItem value={'UKG'}>UKG</MenuItem>
@@ -141,6 +141,7 @@ class HomePage extends React.Component {
         this.state = {
           classOpen:false,
           studentClass:null,
+          dueClass:null,
           searchPhrase:null,
           dueOpen:false,
           results:[]
