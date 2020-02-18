@@ -234,7 +234,12 @@ class HomePage extends React.Component {
             <h1> {JSON.parse(localStorage.getItem('user')).school_name}</h1>
             </div>
             <div className="button-container"> 
-            <Button variant="contained" color = 'primary'  onClick={this.handleAddStudent} >
+            <Button variant="contained"
+                    color = 'primary' 
+                    onClick={this.handleAddStudent}
+                    style = {{left: "5%",
+                              width: 150}}
+             >
             Add Student
             </Button>
             </div>
@@ -259,7 +264,10 @@ class HomePage extends React.Component {
                </div>
             </div>
             <div className = 'btn-logout'>
-             <Button variant="outlined" color = 'primary'  onClick={this.handleLogOut} >
+             <Button variant="outlined" 
+                     color = 'primary'  
+                     onClick={this.handleLogOut}
+                     style = {{width:150}} >
               Logout
              </Button>
             </div>
