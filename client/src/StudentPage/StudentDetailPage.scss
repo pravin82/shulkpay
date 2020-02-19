@@ -12,7 +12,8 @@
 	height:90px;
 	justify-content:space-between;	
 	top:20%;
-	position:absolute
+	position:absolute;
+	left:5%
 
 }
 
@@ -31,8 +32,8 @@
 
 .transactions {
 	margin-top: 120px;
-	margin-left:360px;
-	margin-right:360px;
+	margin-left:30%;
+	margin-right:30%;
 }
 
 .transaction-due {
@@ -41,7 +42,6 @@
     box-shadow: rgba(0,0,0,0.8) 0 0 10px;
     align-items:center;
     height:40px;
-    width:80%;
     background-color:#FF4500
 
 }
@@ -51,7 +51,6 @@
     box-shadow: rgba(0,0,0,0.8) 0 0 10px;
     align-items:center;
     height:40px;
-    width:80%;
     background-color:#85bf31
 
 }
@@ -66,11 +65,13 @@
 	margin-left:10px
 }
 
-.link {
+.home-link {
   position:absolute;
   left: 20px;
-  top:50px;
+  top: 20px;
   color:#3f51b5;
   font-size:25px;
   cursor:pointer
 }
+
+

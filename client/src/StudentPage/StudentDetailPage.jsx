@@ -281,22 +281,26 @@ export class StudentDetailPage extends React.Component {
      
     	return (
             <div>
-             <div className = "link"
+             <div className = "home-link"
                   onClick = {this.handleHomeLink}
              >
             Shulkpay
             </div>
-            <div>
-            <h1> {this.studentObj.name}</h1>
+            <div style = {{marginTop:60}}>
+            <h1 style = {{fontWeight: ' bold'}}> {this.studentObj.name}</h1>
             </div>
             <div className = "detail">
-            <h2> Roll No : {this.studentObj.roll_no} </h2>
-            <h2> Class: {this.studentObj.class} </h2>
-            <h2> Section : {this.studentObj.section}</h2>
+            <h2 style = {{fontWeight: 'normal'}}> Roll No : {this.studentObj.roll_no} </h2>
+            <h2 style = {{fontWeight: 'normal'}}> Class: {this.studentObj.class} </h2>
+            <h2 style = {{fontWeight: 'normal'}}> Section : {this.studentObj.section}</h2>
             </div>
             <div>
             {this.state.results[0] &&
-              ( <h1>Total Due:  {Math.abs(this.state.results[0].total_due)}</h1>)
+              ( <h1 style = {{color:"#FF4500",
+                              fontWeight:'bold'
+                    }}
+                >
+                Total Due:  {Math.abs(this.state.results[0].total_due)}</h1>)
             }
             </div>
             <div className = 'transactions'>
