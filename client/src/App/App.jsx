@@ -17,7 +17,7 @@ class App extends React.Component {
                     <div className="col-sm-8 col-sm-offset-2">
                         <Router>
                             <div>
-                                <PrivateRoute exact path="/" component={HomePage}  forceRefresh = {true}/>
+                                <PrivateRoute exact path="/" component={HomePage} />
                                 <Route  path="/login" component={MainPage} />
                                 <PrivateRoute exact  path="/student" component={StudentPage} />
                                 <PrivateRoute  path="/student/:studentId" component={StudentDetailPage}  />
