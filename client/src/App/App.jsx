@@ -17,10 +17,10 @@ class App extends React.Component {
                     <div className="col-sm-8 col-sm-offset-2">
                         <Router>
                             <div>
-                                <PrivateRoute exact path="/" component={HomePage} />
+                                <PrivateRoute exact path="/" component={HomePage}  forceRefresh = {true}/>
                                 <Route  path="/login" component={MainPage} />
                                 <PrivateRoute exact  path="/student" component={StudentPage} />
-                                <PrivateRoute  path="/student/:studentId" component={StudentDetailPage} />
+                                <PrivateRoute  path="/student/:studentId" component={StudentDetailPage}  />
                             </div>
                         </Router>
                     </div>

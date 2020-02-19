@@ -163,6 +163,7 @@ function DueModal(props) {
 
 export class StudentDetailPage extends React.Component {
 	constructor(props) {
+       console.log("props of sD++++", props)
        super(props);
        this.state = {
         feeOpen: false,
@@ -172,7 +173,8 @@ export class StudentDetailPage extends React.Component {
         dueBarOpen:false,
         dueOpen:false,
         remarks:null,
-        results:[]
+        results:[],
+        studentObj:null
        }
 
       this.handleFeeOpen= this.handleFeeOpen.bind(this);
@@ -184,31 +186,25 @@ export class StudentDetailPage extends React.Component {
       this.handleAddDue = this.handleAddDue.bind(this);
       this.handleHomeLink = this.handleHomeLink.bind(this);
 
-
-      // if(this.props.location.state) {
-      //   console.log("in if+++")
-      //   this.studentObj = this.props.location.state.studentObj
-      // }
-      // else {
-      //   console.log("in else+++")
-      //   this.props.history.push('/login'); 
-      // }
-
-
-
-      
-
-
     }
-   studentObj = this.props.location.state.studentObj
-  
-
+    
+    studentId = this.props.location.pathname.substring(9)
+    
     componentDidMount() {
-        axios.get(url + "/student/studentDetail/?studentId=" + this.studentObj.id)
+         axios.get(url + "/student/transDetail/?studentId=" + this.studentId)
         .then(response => {
             if (response.data.status == 'error') alert(response.data.msg)
             else {
                 this.setState({results: response.data.data})
+               
+            }    
+        })
+        axios.get(url + "/student/studentDetail/?studentId=" + this.studentId)
+        .then(response => {
+            if (response.data.status == 'error') alert(response.data.msg)
+            else {
+                console.log("response.data+++", response.data.data[0])
+                this.setState({studentObj: response.data.data[0]})
                
             }    
         })
@@ -289,6 +285,7 @@ export class StudentDetailPage extends React.Component {
 
 
     render() {
+      console.log("StunetId+++", this.studentId)
      
     	return (
             <div>
@@ -297,14 +294,19 @@ export class StudentDetailPage extends React.Component {
              >
             Shulkpay
             </div>
-            <div style = {{marginTop:60}}>
-            <h1 style = {{fontWeight: ' bold'}}> {this.studentObj.name}</h1>
-            </div>
-            <div className = "detail">
-            <h2 style = {{fontWeight: 'normal'}}> Roll No : {this.studentObj.roll_no} </h2>
-            <h2 style = {{fontWeight: 'normal'}}> Class: {this.studentObj.class} </h2>
-            <h2 style = {{fontWeight: 'normal'}}> Section : {this.studentObj.section}</h2>
-            </div>
+            {this.state.studentObj &&
+              ( <div>
+                <div style = {{marginTop:60}}>
+                <h1 style = {{fontWeight: ' bold'}}> {this.state.studentObj.name}</h1>
+                </div>
+                <div className = "detail">
+                <h2 style = {{fontWeight: 'normal'}}> Roll No : {this.state.studentObj.roll_no} </h2>
+                <h2 style = {{fontWeight: 'normal'}}> Class: {this.state.studentObj.class} </h2>
+                <h2 style = {{fontWeight: 'normal'}}> Section : {this.state.studentObj.section}</h2>
+                </div>
+                </div>
+              )
+            }
             <div>
             {this.state.results[0] &&
               ( <h1 style = {{color:"#FF4500",
