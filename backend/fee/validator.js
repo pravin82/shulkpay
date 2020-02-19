@@ -22,6 +22,15 @@ function payFeeValidator(params) {
   return validate(params, schema)
 }
 
+function classDueValidator(params) {
+  const schema = Joi.object().keys({
+  amount:Joi.number().integer().required(),
+  studentClass: Joi.string().required(),
+  })
+  return validate(params, schema)
+}
+
 module.exports={
-	payFeeValidator
+	payFeeValidator,
+  classDueValidator
 }

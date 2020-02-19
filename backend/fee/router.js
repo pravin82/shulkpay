@@ -10,4 +10,10 @@ router.post("/payFee", isAuthenticated,  async (req, res) => {
 	res.send(feePaymentResp);
 });
 
+router.post("/classDue", isAuthenticated,  async (req, res) => {
+	const params = lodash.pick(req.body, ["studentClass", 'amount']);
+	const classDueResp = await feeFactory.addClassDue(req, res, params);
+	res.send(classDueResp);
+});
+
 module.exports = router;
