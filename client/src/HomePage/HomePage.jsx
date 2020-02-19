@@ -3,6 +3,12 @@ import SearchBar from 'material-ui-search-bar'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import {withStyles } from '@material-ui/core/styles';
@@ -37,13 +43,105 @@ const Result = ({thisR}) => {
 }
 
 
+function DueModal(props) {
+  return <Dialog 
+            open={true} 
+            onClose={props.this.handleDueClose}
+            aria-labelledby="form-dialog-title"
+            fullWidth = "true"
+          >
+          <DialogTitle id="form-dialog-title">Add Due</DialogTitle>
+          <DialogContent>
+          <div className = "form-fee">
+          <StyledFormControl>
+          {<StudentClass this = {props.this} dueClass = {true}/>}
+          </StyledFormControl>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Amount"
+            type="number"
+            onChange={props.this.handleChange}
+            name = "amount"
+           />
+            <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Remarks"
+            type="text"
+            onChange={props.this.handleChange}
+            name = "remarks"
+           />
+          
+            </div>
+            </DialogContent>
+            <DialogActions>
+            <Button onClick={props.this.handleDueClose} color="primary">
+            Cancel
+            </Button>
+            <div style = {{
+               marginLeft:80
+            }}>
+            <Button 
+              onClick={props.this.handleAddDue}
+              style = {{
+                backgroundColor:"#FF4500"     
+                }}
+            >
+            Add Due
+            </Button>
+            </div>
+            </DialogActions>
+            </Dialog>
+}
+
+function StudentClass(props) {
+    return  <div>
+            <InputLabel id="demo-controlled-open-select-label"
+                         style = {{width: '100%'}}
+             >
+            Class
+            </InputLabel>
+             <Select
+                labelId="demo-controlled-open-select-label"
+                id="demo-controlled-open-select"
+                open={props.this.state.Classopen}
+                name = {props.dueClass ? "dueClass" : "studentClass"}
+                style = {{width: '100%'}}
+                onClose={props.this.handleClose}
+                onOpen={props.this.handleOpen}
+                value={props.dueClass ? props.this.state.dueClass : props.this.state.studentClass }
+                onChange={props.this.handleChange}
+              >
+            <MenuItem value={'NURSERY'}>Nursery</MenuItem>
+            <MenuItem value={'LKG'}>LKG</MenuItem>
+            <MenuItem value={'UKG'}>UKG</MenuItem>
+            <MenuItem value={'1'}>1</MenuItem>
+            <MenuItem value={'2'}>2</MenuItem>
+            <MenuItem value={'3'}>3</MenuItem>
+            <MenuItem value={'4'}>4</MenuItem>
+            <MenuItem value={'5'}>5</MenuItem>
+            <MenuItem value={'6'}>6</MenuItem>
+            <MenuItem value={'7'}>7</MenuItem>
+            <MenuItem value={'8'}>8</MenuItem>
+            <MenuItem value={'9'}>9</MenuItem>
+            <MenuItem value={'10'}>10</MenuItem>
+            </Select>
+            </div>
+}
+
+
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
           classOpen:false,
           studentClass:null,
+          dueClass:null,
           searchPhrase:null,
+          dueOpen:false,
           results:[]
         }
         this.handleLogOut = this.handleLogOut.bind(this);
@@ -51,9 +149,12 @@ class HomePage extends React.Component {
         this.handleStudentDetail = this.handleStudentDetail.bind(this);
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleDueOpen= this.handleDueOpen.bind(this);
+        this.handleDueClose= this.handleDueClose.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
+        this.handleClassDue  = this.handleClassDue.bind(this);
 
 
 
@@ -77,6 +178,18 @@ class HomePage extends React.Component {
     
     handleAddStudent(e) {
         this.props.history.push('/student'); 
+    }
+     handleDueOpen() {
+      this.setState({dueOpen:true})
+    }
+
+    handleDueClose() {
+      this.setState({dueOpen:false})
+    }
+
+    handleClassDue(e) {
+
+
     }
 
     handleOpen(e) {
@@ -119,42 +232,18 @@ class HomePage extends React.Component {
             <h1> {JSON.parse(localStorage.getItem('user')).school_name}</h1>
             </div>
             <div className="button-container"> 
-                <h2>Hi  {JSON.parse(localStorage.getItem('user')).name}</h2>
-            <Button variant="contained" color = 'primary' className = 'btn-student' onClick={this.handleAddStudent} >
+            <Button variant="contained"
+                    color = 'primary' 
+                    onClick={this.handleAddStudent}
+                    style = {{left: "5%",
+                              width: 150}}
+             >
             Add Student
             </Button>
-                 
             </div>
               <div className = "search-section">
                <StyledFormControl >
-             <InputLabel id="demo-controlled-open-select-label">Class</InputLabel>
-             <Select
-                labelId="demo-controlled-open-select-label"
-                id="demo-controlled-open-select"
-                open={this.state.Classopen}
-                name = "studentClass"
-                onClose={this.handleClose}
-                onOpen={this.handleOpen}
-                value={this.state.studentClass}
-                onChange={this.handleChange}
-              >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={'NURSERY'}>Nursery</MenuItem>
-            <MenuItem value={'LKG'}>LKG</MenuItem>
-            <MenuItem value={'UKG'}>UKG</MenuItem>
-            <MenuItem value={'1'}>1</MenuItem>
-            <MenuItem value={'2'}>2</MenuItem>
-            <MenuItem value={'3'}>3</MenuItem>
-            <MenuItem value={'4'}>4</MenuItem>
-            <MenuItem value={'5'}>5</MenuItem>
-            <MenuItem value={'6'}>6</MenuItem>
-            <MenuItem value={'7'}>7</MenuItem>
-            <MenuItem value={'8'}>8</MenuItem>
-            <MenuItem value={'9'}>9</MenuItem>
-            <MenuItem value={'10'}>10</MenuItem>
-            </Select>
+               {<StudentClass this = {this}/>}
            </StyledFormControl>
                <MuiThemeProvider>
                <SearchBar 
@@ -173,10 +262,25 @@ class HomePage extends React.Component {
                </div>
             </div>
             <div className = 'btn-logout'>
-             <Button variant="outlined" color = 'primary'  onClick={this.handleLogOut} >
+             <Button variant="outlined" 
+                     color = 'primary'  
+                     onClick={this.handleLogOut}
+                     style = {{width:150}} >
               Logout
              </Button>
             </div>
+            <div className = 'btn-due'>
+             <Button variant="contained" 
+                     onClick={this.handleClassDue} 
+                     onClick={this.handleDueOpen}
+                     style = {{
+                       backgroundColor:"#FF4500",
+                       color:"#ffffff"    
+                    }} >
+             Add Class Due
+            </Button> 
+            </div>
+            {this.state.dueOpen && (<DueModal this = {this}/>)}
             </div>        
             
         );

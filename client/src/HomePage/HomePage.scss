@@ -1,13 +1,15 @@
-.btn-student {
-  font-size: 21px;
-  background-color: #3498db;
-  color: #fff;
-  border-radius: 3px;
-  position: 'relative';
-  bottom:0;
-  right:0;
-  
+
+.btn-due {
+  position : absolute;
+  top: 3%;
+  left: 5%
 }
+
+.button-container {
+  margin-top:80px;
+  display:none
+}
+
 
 .parent {
   position: 'relative';
@@ -25,12 +27,14 @@
   display: flex;
   position: relative;
   left: 35rem;
-  width:30%
+  width:30%;
+  font-weight:bold
 }
 
 .search-section {
   display:flex;
-  justify-content:center
+  justify-content:center;
+  margin-top:50px
 }
 
 .students {

@@ -32,7 +32,7 @@ async function searchStudent(req, res, params) {
 	return addStudentResp;
 }
 
-async function getStudentDetail(req, res, params) {
+async function getTransDetail(req, res, params) {
 	const validatorResp = studentValidator.studentDetailValidator(params);
 	if (validatorResp.error) return validatorResp;
 	let {schoolId} = req.session
@@ -58,9 +58,24 @@ async function getStudentDetail(req, res, params) {
 	return detailResp;
 }
 
+async function getStudentDetail(req, res, params) {
+	const validatorResp = studentValidator.studentDetailValidator(params);
+	if (validatorResp.error) return validatorResp;
+	let {schoolId} = req.session
+	let {studentId } = req.query;
+	let statement = `select s.name, s.roll_no, s.id, cs.section, cs.class
+	                 from students s
+	                 left join class_section cs on s.class_section_id = cs.id
+	                 where s.id = ?`                
+	let values = [studentId];
+	let detailResp = await dbUtils.sqlExecutorAsync(req, res, statement, values);
+	return detailResp;
+}
+
 
 module.exports = {
 	addStudent,
 	searchStudent,
-	getStudentDetail
+	getStudentDetail,
+	getTransDetail
 };

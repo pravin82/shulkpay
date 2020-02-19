@@ -14,6 +14,12 @@ router.get("/studentSearch", async (req, res) => {
 	res.send(searchResp);
 });
 
+router.get("/transDetail", async (req, res) => {
+	const params = lodash.pick(req.query, ["studentId"]);
+	const detailResp = await studentFactory.getTransDetail(req, res, params);
+	res.send(detailResp);
+});
+
 router.get("/studentDetail", async (req, res) => {
 	const params = lodash.pick(req.query, ["studentId"]);
 	const detailResp = await studentFactory.getStudentDetail(req, res, params);

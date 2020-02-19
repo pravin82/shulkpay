@@ -45,5 +45,7 @@ function studentDetailValidator(params) {
 module.exports={
 	addStudentValidator,
   searchStudentValidator,
-  studentDetailValidator
+  studentDetailValidator,
+
+
 }
