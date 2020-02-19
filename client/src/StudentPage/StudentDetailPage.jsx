@@ -247,7 +247,7 @@ export class StudentDetailPage extends React.Component {
 
     handleFeePay(e) {
       const {amount, mop} = this.state
-      const studentId = this.studentObj.id
+      const studentId = this.state.studentObj.id
       let values = {amount: amount, mop: mop, studentId:studentId}                       
       
       axios.post(url + "/fee/payFee", values)
@@ -264,7 +264,7 @@ export class StudentDetailPage extends React.Component {
 
     handleAddDue(e) {
       const {amount, remarks} = this.state
-      const studentId = this.studentObj.id
+      const studentId = this.state.studentObj.id
       let values = {amount: -amount, mop: remarks, studentId:studentId}                       
       
       axios.post(url + "/fee/payFee", values)
