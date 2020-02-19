@@ -98,8 +98,6 @@ function DueModal(props) {
 }
 
 function StudentClass(props) {
-    console.log("props++", props)
-    console.log("dueClass++", props.this.state.dueClass)
     return  <div>
             <InputLabel id="demo-controlled-open-select-label"
                          style = {{width: '100%'}}

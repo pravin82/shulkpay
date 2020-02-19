@@ -185,12 +185,23 @@ export class StudentDetailPage extends React.Component {
       this.handleHomeLink = this.handleHomeLink.bind(this);
 
 
+      // if(this.props.location.state) {
+      //   console.log("in if+++")
+      //   this.studentObj = this.props.location.state.studentObj
+      // }
+      // else {
+      //   console.log("in else+++")
+      //   this.props.history.push('/login'); 
+      // }
+
+
 
       
 
 
     }
-    studentObj = this.props.location.state.studentObj
+   studentObj = this.props.location.state.studentObj
+  
 
     componentDidMount() {
         axios.get(url + "/student/studentDetail/?studentId=" + this.studentObj.id)
