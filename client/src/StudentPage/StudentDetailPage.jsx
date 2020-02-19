@@ -36,6 +36,7 @@ function formatDateTime(dateTime) {
   return((dateUTC.toString()).substring(0,10))  
 }
 
+
 const Transaction = ({thisR}) => {
   return thisR.state.results.map(r => (
     <div className = {r.amount > 0 ? "transaction-fee": "transaction-due"}>
@@ -45,7 +46,6 @@ const Transaction = ({thisR}) => {
     </div>
 
    ))
-
 }
 
 function Alert(props) {
@@ -163,7 +163,6 @@ function DueModal(props) {
 
 export class StudentDetailPage extends React.Component {
 	constructor(props) {
-       console.log("props of sD++++", props)
        super(props);
        this.state = {
         feeOpen: false,
@@ -191,24 +190,25 @@ export class StudentDetailPage extends React.Component {
     studentId = this.props.location.pathname.substring(9)
     
     componentDidMount() {
-         axios.get(url + "/student/transDetail/?studentId=" + this.studentId)
-        .then(response => {
-            if (response.data.status == 'error') alert(response.data.msg)
-            else {
-                this.setState({results: response.data.data})
-               
-            }    
-        })
+        this.transAPI()
         axios.get(url + "/student/studentDetail/?studentId=" + this.studentId)
         .then(response => {
             if (response.data.status == 'error') alert(response.data.msg)
             else {
-                console.log("response.data+++", response.data.data[0])
-                this.setState({studentObj: response.data.data[0]})
-               
+                this.setState({studentObj: response.data.data[0]})     
             }    
-        })
-       
+        })  
+    }
+
+    transAPI(props) {
+      axios.get(url + "/student/transDetail/?studentId=" + this.studentId)
+      .then(response => {
+        if (response.data.status == 'error') alert(response.data.msg)
+        else {
+          this.setState({results: response.data.data})
+               
+        }    
+      })
     }
 
     handleChange(e) {
@@ -256,6 +256,7 @@ export class StudentDetailPage extends React.Component {
         else {
            this.setState({feeBarOpen:true})
            this.handleFeeClose()
+           this.transAPI()
         }    
 
       })    
@@ -273,6 +274,7 @@ export class StudentDetailPage extends React.Component {
         else {
            this.setState({dueBarOpen:true})
            this.handleDueClose()
+           this.transAPI()
         }    
 
       })    
@@ -285,7 +287,6 @@ export class StudentDetailPage extends React.Component {
 
 
     render() {
-      console.log("StunetId+++", this.studentId)
      
     	return (
             <div>
