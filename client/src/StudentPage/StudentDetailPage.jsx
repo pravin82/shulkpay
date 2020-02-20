@@ -21,6 +21,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import {withStyles } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import Pagination from '@material-ui/lab/Pagination';
 
 
 const url = constantUtils.baseUrl;
@@ -38,7 +39,7 @@ function formatDateTime(dateTime) {
 
 
 const Transaction = ({thisR}) => {
-  return thisR.state.results.map(r => (
+  return thisR.state.results.slice((thisR.state.page - 1)*8, (thisR.state.page)*8).map(r => (
     <div className = {r.amount > 0 ? "transaction-fee": "transaction-due"}>
     <div className = "date" >  {formatDateTime(r.created_on)}</div>
     <div className = "amount">{Math.abs(r.amount)}</div>
@@ -191,7 +192,8 @@ export class StudentDetailPage extends React.Component {
         dueOpen:false,
         remarks:null,
         results:[],
-        studentObj:null
+        studentObj:null,
+        page:1
        }
 
       this.handleFeeOpen= this.handleFeeOpen.bind(this);
@@ -202,7 +204,7 @@ export class StudentDetailPage extends React.Component {
       this.handleFeePay = this.handleFeePay.bind(this);
       this.handleAddDue = this.handleAddDue.bind(this);
       this.handleHomeLink = this.handleHomeLink.bind(this);
-
+      this.handlePaginationChange = this.handlePaginationChange.bind(this);
     }
     
     studentId = this.props.location.pathname.substring(9)
@@ -303,6 +305,10 @@ export class StudentDetailPage extends React.Component {
      this.props.history.push('/'); 
     }
 
+    handlePaginationChange(e, page) {
+      this.setState({page:page})
+    }
+
 
     render() {
      
@@ -377,8 +383,15 @@ export class StudentDetailPage extends React.Component {
         )}
     
 
-            </div>
-            </div>
+        </div>
+        <div className = {(this.state.results && this.state.results.length > 8) ? "pagination" : "pagination-hide" }>
+        <Pagination count={10}
+                    color="primary"
+                    onChange = {this.handlePaginationChange}
+       />
+        </div>
+        
+        </div>
     		
 
     	)
