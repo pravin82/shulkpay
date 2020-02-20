@@ -52,6 +52,24 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
+function TotalDue(props) {
+  return <h1 style = {{
+                color:"#FF4500",
+                fontWeight:'bold'
+             }}
+  >
+  Total Due:  {Math.abs(props.this.state.results[0].total_due)}</h1>
+}
+
+function TotalAdvance(props) {
+   return <h1 style = {{
+                color:"#85bf31",
+                fontWeight:'bold'
+              }}
+  >
+  Total Advance:  {Math.abs(props.this.state.results[0].total_due)}</h1>
+}
+
 function FeeModal(props) {
   return <Dialog 
             open={true} 
@@ -309,12 +327,11 @@ export class StudentDetailPage extends React.Component {
               )
             }
             <div>
-            {this.state.results[0] &&
-              ( <h1 style = {{color:"#FF4500",
-                              fontWeight:'bold'
-                    }}
-                >
-                Total Due:  {Math.abs(this.state.results[0].total_due)}</h1>)
+            {(this.state.results[0] && this.state.results[0].total_due < 0) && 
+              (<TotalDue this = {this}/>)
+            }
+            {(this.state.results[0] && this.state.results[0].total_due > 0) && 
+              (<TotalAdvance this = {this}/>)
             }
             </div>
             <div className = 'transactions'>
