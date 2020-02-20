@@ -18,6 +18,8 @@ import "../index.css"
 import "./HomePage.scss";
 import constantUtils from "../constant.js";
 import {StudentDetailPage} from "../StudentPage/StudentDetailPage"
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 
 const url = constantUtils.baseUrl;
@@ -40,6 +42,10 @@ const Result = ({thisR}) => {
 
    ))
 
+}
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 
@@ -85,7 +91,7 @@ function DueModal(props) {
                marginLeft:80
             }}>
             <Button 
-              onClick={props.this.handleAddDue}
+              onClick={props.this.handleClassDue}
               style = {{
                 backgroundColor:"#FF4500"     
                 }}
@@ -142,6 +148,9 @@ class HomePage extends React.Component {
           dueClass:null,
           searchPhrase:null,
           dueOpen:false,
+          dueBarOpen:false,
+          amount:null,
+          remarks:null,
           results:[]
         }
         this.handleLogOut = this.handleLogOut.bind(this);
@@ -188,8 +197,26 @@ class HomePage extends React.Component {
     }
 
     handleClassDue(e) {
+      const {amount, remarks} = this.state
+      const studentClass = this.state.dueClass
+      let values = {amount: -amount, mop: remarks, studentClass:studentClass}                       
+      
+      axios.post(url + "/fee/classDue", values)
+      .then(response => {
+        if (response.data.status == 'error') alert(response.data.msg)
+        else {
+           this.setState({dueBarOpen:true})
+           this.handleDueClose()
+        }    
+      })    
 
+    }
 
+    handleDueBarClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+    this.setState({dueBarOpen:false})
     }
 
     handleOpen(e) {
@@ -281,6 +308,15 @@ class HomePage extends React.Component {
             </Button> 
             </div>
             {this.state.dueOpen && (<DueModal this = {this}/>)}
+            { this.state.dueBarOpen && (
+            <Snackbar open={this.state.dueBarOpen} autoHideDuration={6000} onClose = {this.handleDueBarClose} >
+            <Alert  severity="success" 
+                    onClose = {this.handleDueBarClose} 
+                    style = {{backgroundColor:'#FF4500'}}>
+              Due Added Successfuly!
+            </Alert>
+            </Snackbar>
+        )}
             </div>        
             
         );

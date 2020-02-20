@@ -27,6 +27,8 @@ app.disable("view cache");
 app.locals.host = "http://shulkpay.test:8080/";
 app.use(apiRouter);
 
+
+
 db.connect(null, err => {
 	if (err) {
 		console.log("Unable to connect to MySQL.");
