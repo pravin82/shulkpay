@@ -333,7 +333,7 @@ export class StudentDetailPage extends React.Component {
               )
             }
             <div>
-            {(this.state.results[0] && this.state.results[0].total_due < 0) && 
+            {(this.state.results[0] && this.state.results[0].total_due <= 0) && 
               (<TotalDue this = {this}/>)
             }
             {(this.state.results[0] && this.state.results[0].total_due > 0) && 
