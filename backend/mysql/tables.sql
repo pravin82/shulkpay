@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `schools` (
 
 insert into schools(name) values('Pravin High School');
 
---7th Frbruary created by Pravin
+-- 7th Frbruary created by Pravin
 
 CREATE TABLE IF NOT EXISTS `students` (
    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,     
@@ -97,7 +97,7 @@ insert into class_section(class, section) values("10", "B");
 insert into class_section(class, section) values("10", "C");
 
 
---11th Frbruary 2020 created by Pravin
+-- 11th Frbruary 2020 created by Pravin
 
 alter table payments add column remarks varchar(255);
 
