@@ -8,11 +8,11 @@ const mysql = require('mysql')
 
 const zonalConfig = {
   beta: {
-    database: 'beta_homeyantra',
+    database: 'shulkpay_beta',
     debug: true
   },
   prod: {
-    database: 'homeyantra',
+    database: 'shulkpay_beta',
     debug: false
   },
   test: {
