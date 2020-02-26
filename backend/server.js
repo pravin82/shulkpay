@@ -25,7 +25,7 @@ app.get('/', function (req, res) {
    res.sendFile(path.join(__dirname,'../', 'client', 'build', 'index.html'));
  });
 
-const corsOptions = {
+let corsOptions = {
     origin: 'http://localhost:3000',
     credentials: true,
 }
