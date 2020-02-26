@@ -8,7 +8,7 @@ const DynamoDBStore = require("connect-dynamodb")({
 });
 
 
-AWS.config.region = "us-ease-1";
+AWS.config.region = "us-east-1";
 
 const dynamoDBConfig = {
   table: "shulkpay-session",
