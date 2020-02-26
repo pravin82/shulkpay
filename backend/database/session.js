@@ -7,7 +7,7 @@ const DynamoDBStore = require("connect-dynamodb")({
   session: session
 });
 
-/*
+
 AWS.config.region = "ap-south-1";
 
 const dynamoDBConfig = {
@@ -17,7 +17,7 @@ const dynamoDBConfig = {
   reapInterval: 3600 * 1000
 };
 
-*/
+
 const globalSessionConfig = {
   cookie: {
     httpOnly: false,
@@ -41,7 +41,7 @@ module.exports = function() {
     store: session.MemoryStore()
   };
  
-/*
+
 
   if (!("ENVIRONMENT" in process.env && process.env.ENVIRONMENT === "local")) {
     envConfig.store = new DynamoDBStore(dynamoDBConfig);
@@ -53,6 +53,6 @@ module.exports = function() {
       path: "/"
     };
   }
-  */
+
   return session(Object.assign({}, globalSessionConfig, envConfig));
 };
