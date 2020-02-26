@@ -19,7 +19,7 @@ const user_login = new LocalStrategy({
   dbUtils.sqlExecutor(null, null, statement, values, async (result, error) => {
     let info = { status: 'error', msg: 'login Successfull' }
     if (error) {
-      info.msg = 'Unexpected error occured'
+      info.msg = 'Unexpected error occured Error:  ' + error 
       return done(info)
     }
       else {
