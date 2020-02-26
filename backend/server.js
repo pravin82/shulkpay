@@ -36,7 +36,7 @@ app.use(session());
 if(isProd){
   console.log("In prod+++")
   app.enable('view cache')
-  app.use(vhost('http://ec2-3-83-101-88.compute-1.amazonaws.com', apiRouter))
+  app.use(vhost('ec2-3-83-101-88.compute-1.amazonaws.com', apiRouter))
 }
 else {
   console.log("In else++++")
