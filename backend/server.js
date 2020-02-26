@@ -10,12 +10,15 @@ global.__base = __dirname + "/";
 const session = require(`${__base}/database/session`);
 const db = require(`${__base}/database/mysql`);
 const router = express.Router();
+const vhost = require('vhost')
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
 const PORT = process.env.npm_package_config_port || 4000;
 const API_PORT = 3001;
 const apiRouter = require(`${__base}/routes/router`);
+const isProd = 'ENVIRONMENT' in process.env && process.env.ENVIRONMENT === 'prod';
+
 
 app.use(express.static(path.join(__dirname, '../', 'client', 'build')));
 app.get('/*', function (req, res) {
@@ -29,11 +32,18 @@ const corsOptions = {
 
 }
 app.use(cors(corsOptions));
-
 app.use(session());
-app.disable("view cache");
-app.locals.host = "http://shulkpay.test:8080/";
-app.use(apiRouter);
+if(isProd){
+  app.enable('view cache')
+  app.use(vhost('ec2-3-83-101-88.compute-1.amazonaws.com', apiRouter))
+}
+else {
+  app.disable("view cache");
+  app.locals.host = "http://shulkpay.test:8080/";
+  app.use(apiRouter);
+}
+
+
 
 
 
