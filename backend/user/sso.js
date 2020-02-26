@@ -22,8 +22,14 @@ const user_login = new LocalStrategy({
       return done(info)
     }
       else {
-      info.login_data = result[0]
-      info.status = 'success'
+      if(result[0]){
+        info.login_data = result[0]
+        info.status = 'success'
+      }
+      else {
+        info.msg = "Wrong Credentials"
+      }
+      
     }
     return done(info)
   })
