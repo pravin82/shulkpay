@@ -21,6 +21,7 @@ passport.deserializeUser(function (obj, done) {
 
 
 router.post('/login', function (req, res, next) {
+  console.log("here in router+++")
   passport.authenticate('user_login', function (result) {
     if (result.status === 'success' && result.login_data) {
       userHelper.saveSessionAndCookie(req, res, result.login_data)

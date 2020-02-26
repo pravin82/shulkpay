@@ -7,6 +7,7 @@ const LocalStrategy = require('passport-local').Strategy
 const user_login = new LocalStrategy({
   passReqToCallback: true,
 }, async (req, username, password, done) => {
+  console.log("here in passport")
   const {  } = req.body
   let statement = `select u.username, u.name, u.school_id, u.id,
                    s.name as school_name
