@@ -33,15 +33,15 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 app.use(session());
-if(isProd){
-  app.enable('view cache')
-  app.use(vhost('ec2-3-83-101-88.compute-1.amazonaws.com', apiRouter))
-}
-else {
+//if(isProd){
+  //app.enable('view cache')
+  //app.use(vhost('http://ec2-3-83-101-88.compute-1.amazonaws.com', apiRouter))
+//}
+//else {
   app.disable("view cache");
   app.locals.host = "http://shulkpay.test:8080/";
   app.use(apiRouter);
-}
+//}
 
 
 
