@@ -9,6 +9,7 @@ router.post("/add", async (req, res) => {
 });
 
 router.get("/studentSearch", async (req, res) => {
+	console.log("InsidestudentSearch++")
 	const params = lodash.pick(req.query, ["studentClass", "searchPhrase"]);
 	const searchResp = await studentFactory.searchStudent(req, res, params);
 	res.send(searchResp);
