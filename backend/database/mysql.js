@@ -9,12 +9,16 @@ const zonalConfig = {
     host: 'shulkpay-beta.cbkhpjodrbti.us-east-1.rds.amazonaws.com',
     port: 3306,
     database: 'shulkpay_beta',
+    user: 'admin',
+    password: 'ultimatewinner',
     debug: true
   },
   prod: {
     host: 'shulkpay-beta.cbkhpjodrbti.us-east-1.rds.amazonaws.com',
     port:3306,
     database: 'shulkpay_beta',
+    user: 'admin',
+    'password': 'ultimatewinner',
     debug: false
   },
   test: {
