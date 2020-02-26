@@ -3,6 +3,7 @@ const studentValidator = require("./validator");
 
 async function addStudent(req, res, params) {
 	const validatorResp = studentValidator.addStudentValidator(params);
+	console.log("req,session+++", req.session)
 	let {schoolId} = req.session
 	if (validatorResp.error) return validatorResp;
 	let { name, studentSection, studentClass, rollNo } = req.body;
