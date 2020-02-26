@@ -21,14 +21,16 @@ const isProd = 'ENVIRONMENT' in process.env && process.env.ENVIRONMENT === 'prod
 
 
 app.use(express.static(path.join(__dirname, '../', 'client', 'build')));
-app.get('/*', function (req, res) {
+app.get('/', function (req, res) {
    res.sendFile(path.join(__dirname,'../', 'client', 'build', 'index.html'));
  });
 
 const corsOptions = {
     origin: 'http://localhost:3000',
     credentials: true,
-
+}
+if(isProd) {
+	corsOptions.origin = 'http://ec2-3-83-101-88.compute-1.amazonaws.com:4000'
 }
 app.use(cors(corsOptions));
 app.use(session());
