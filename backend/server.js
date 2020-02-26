@@ -25,7 +25,6 @@ app.get('/*', function (req, res) {
    res.sendFile(path.join(__dirname,'../', 'client', 'build', 'index.html'));
  });
 
-console.log("ispRod++", isProd)
 const corsOptions = {
     origin: 'http://localhost:3000',
     credentials: true,
