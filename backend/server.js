@@ -3,6 +3,8 @@ var cors = require("cors");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const app = (module.exports = express());
+const path = require('path')
+
 
 global.__base = __dirname + "/";
 const session = require(`${__base}/database/session`);
