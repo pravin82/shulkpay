@@ -34,6 +34,7 @@ app.use(cors(corsOptions));
 app.use(session());
 if(isProd){
   app.enable('view cache')
+  app.disable('etag')
   app.use(vhost('ec2-3-83-101-88.compute-1.amazonaws.com', apiRouter))
 }
 else {
