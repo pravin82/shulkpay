@@ -6,10 +6,14 @@ const mysql = require('mysql')
 
 const zonalConfig = {
   beta: {
+    host: 'shulkpay-beta.cbkhpjodrbti.us-east-1.rds.amazonaws.com',
+    port: 3306,
     database: 'shulkpay_beta',
     debug: true
   },
   prod: {
+    host: 'shulkpay-beta.cbkhpjodrbti.us-east-1.rds.amazonaws.com',
+    port:3306,
     database: 'shulkpay_beta',
     debug: false
   },
