@@ -1,6 +1,4 @@
-/**
- * Created by rohit nawani on 06/05/18.
- */
+
 'use strict'
 
 const mysql = require('mysql')
