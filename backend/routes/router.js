@@ -9,6 +9,9 @@ var corsOptions = {
   credentials: true
 }
 router.use((req, res, next) => {
+  console.log("routeorigin++", req.get('origin'))
+  console.log("routerehEad+++", req.headers.cookie)
+  console.log("req.cookies++++", req.cookies)
   corsOptions['origin'] = req.get('origin')
   next()
 }, cors(corsOptions))
