@@ -26,11 +26,11 @@ app.get('/', function (req, res) {
 });
 
 let corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost',
     credentials: true,
 }
 if(isProd) {
-	corsOptions.origin = 'http://ec2-3-83-101-88.compute-1.amazonaws.com:4000'
+	corsOptions.origin = 'http://ec2-3-83-101-88.compute-1.amazonaws.com'
 }
 app.use(cors(corsOptions));
 app.use(session());
