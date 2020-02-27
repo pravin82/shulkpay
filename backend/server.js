@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 const app = (module.exports = express());
 const path = require('path')
+const cookieParser = require('cookie-parser')
+
 
 
 global.__base = __dirname + "/";
@@ -32,6 +34,8 @@ let corsOptions = {
 if(isProd) {
 	corsOptions.origin = 'http://ec2-3-83-101-88.compute-1.amazonaws.com'
 }
+app.use(cookieParser())
+
 app.use(cors(corsOptions));
 app.use(session());
 if(isProd){
