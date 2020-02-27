@@ -24,7 +24,7 @@ function isAuthenticated(req, res, next) {
   if (req.session.userId && parseInt(req.session.userId) > 0) {
     return next()
   } else {
-    deleteUserSession(req, res);
+    //deleteUserSession(req, res);
     return res.json({ msg: "The user is not loggedIn",
                       status:"error" })
   }
