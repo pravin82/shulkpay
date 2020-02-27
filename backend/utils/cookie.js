@@ -4,12 +4,13 @@ const isLocalExecution =
 const cookieOptions = {
   domain: ".shulkpay." + (isLocalExecution ? "test" : "com"),
   // secure: (isLocalExecution) ? false : true,
+  secure: false,
   // cookie expires in 1 hour if local, 1 month otherwise
   maxAge: (isLocalExecution ? 1 : 30 * 24) * 3600 * 1000
 };
 
 const cookieDeleteOptions = {
-  domain: ".arzooo." + (isLocalExecution ? "test" : "com"),
+  domain: ".shulkpay." + (isLocalExecution ? "test" : "com"),
   secure: isLocalExecution ? false : true
 };
 
