@@ -20,6 +20,7 @@ function deleteUserSession(req, res) {
 }
 
 function isAuthenticated(req, res, next) {
+  console.log("authUID+++", req.session.userId)
   if (req.session.userId && parseInt(req.session.userId) > 0) {
     return next()
   } else {

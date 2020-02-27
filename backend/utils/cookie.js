@@ -11,7 +11,8 @@ const cookieOptions = {
 
 const cookieDeleteOptions = {
   domain: ".shulkpay." + (isLocalExecution ? "test" : "com"),
-  secure: isLocalExecution ? false : true
+  //secure: isLocalExecution ? false : true
+  secure: false
 };
 
 function getCookie(req, name) {
