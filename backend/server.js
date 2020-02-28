@@ -32,7 +32,7 @@ let corsOptions = {
     credentials: true,
 }
 if(isProd) {
-	corsOptions.origin = 'http://www.shulkpay.com'
+	corsOptions.origin = 'https://www.shulkpay.com'
 }
 app.use(cookieParser())
 
