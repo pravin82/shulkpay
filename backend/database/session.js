@@ -48,7 +48,7 @@ module.exports = function() {
     envConfig.cookie = {
       httpOnly: false,
       domain: ".shulkpay.com",
-      secure: false,
+      secure: true,
       maxAge: 30 * 24 * 3600 * 1000, // 1 month
       path: "/"
     };
