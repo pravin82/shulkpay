@@ -42,7 +42,7 @@ if(isProd){
   app.enable('view cache')
   //app.disable("view cache");
   //app.disable('etag')
-  app.use(vhost('shulkpay.com', apiRouter))
+  app.use(vhost('www.shulkpay.com', apiRouter))
 }
 else {
   app.disable("view cache");
