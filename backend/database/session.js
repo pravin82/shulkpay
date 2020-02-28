@@ -7,17 +7,17 @@ const DynamoDBStore = require("connect-dynamodb")({
   session: session
 });
 
-/*
-AWS.config.region = "ap-south-1";
+
+AWS.config.region = "us-east-1";
 
 const dynamoDBConfig = {
   table: "shulkpay-session",
   client: new AWS.DynamoDB(),
-  AWSRegion: "ap-south-1",
+  AWSRegion: "us-east-1",
   reapInterval: 3600 * 1000
 };
 
-*/
+
 const globalSessionConfig = {
   cookie: {
     httpOnly: false,
@@ -41,18 +41,18 @@ module.exports = function() {
     store: session.MemoryStore()
   };
  
-/*
+
 
   if (!("ENVIRONMENT" in process.env && process.env.ENVIRONMENT === "local")) {
     envConfig.store = new DynamoDBStore(dynamoDBConfig);
     envConfig.cookie = {
       httpOnly: false,
       domain: ".shulkpay.com",
-      // secure: true,
+      secure: false,
       maxAge: 30 * 24 * 3600 * 1000, // 1 month
       path: "/"
     };
   }
-  */
+
   return session(Object.assign({}, globalSessionConfig, envConfig));
 };

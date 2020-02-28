@@ -7,6 +7,7 @@ const LocalStrategy = require('passport-local').Strategy
 const user_login = new LocalStrategy({
   passReqToCallback: true,
 }, async (req, username, password, done) => {
+  console.log("here in passport")
   const {  } = req.body
   let statement = `select u.username, u.name, u.school_id, u.id,
                    s.name as school_name
@@ -18,12 +19,18 @@ const user_login = new LocalStrategy({
   dbUtils.sqlExecutor(null, null, statement, values, async (result, error) => {
     let info = { status: 'error', msg: 'login Successfull' }
     if (error) {
-      info.msg = 'Unexpected error occured'
+      info.msg = 'Unexpected error occured Error:  ' + error 
       return done(info)
     }
       else {
-      info.login_data = result[0]
-      info.status = 'success'
+      if(result[0]){
+        info.login_data = result[0]
+        info.status = 'success'
+      }
+      else {
+        info.msg = "Wrong Credentials"
+      }
+      
     }
     return done(info)
   })

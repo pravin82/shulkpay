@@ -3,29 +3,52 @@ var cors = require("cors");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const app = (module.exports = express());
+const path = require('path')
+const cookieParser = require('cookie-parser')
+
+
 
 global.__base = __dirname + "/";
 const session = require(`${__base}/database/session`);
 const db = require(`${__base}/database/mysql`);
 const router = express.Router();
+const vhost = require('vhost')
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
 const PORT = process.env.npm_package_config_port || 4000;
 const API_PORT = 3001;
 const apiRouter = require(`${__base}/routes/router`);
+const isProd = 'ENVIRONMENT' in process.env && process.env.ENVIRONMENT === 'prod';
 
-const corsOptions = {
+
+app.use(express.static(path.join(__dirname, '../', 'client', 'build')));
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname,'../', 'client', 'build', 'index.html'));
+});
+
+let corsOptions = {
     origin: 'http://localhost:3000',
     credentials: true,
-
 }
-app.use(cors(corsOptions));
+if(isProd) {
+	corsOptions.origin = 'http://www.shulkpay.com'
+}
+app.use(cookieParser())
 
+app.use(cors(corsOptions));
 app.use(session());
-app.disable("view cache");
-app.locals.host = "http://shulkpay.test:8080/";
-app.use(apiRouter);
+if(isProd){
+  app.enable('view cache')
+  app.use(vhost('www.shulkpay.com', apiRouter))
+}
+else {
+  app.disable("view cache");
+  app.locals.host = "http://shulkpay.test:8080/";
+  app.use(apiRouter);
+}
+
+
 
 
 

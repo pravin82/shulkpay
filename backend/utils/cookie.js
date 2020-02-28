@@ -2,15 +2,17 @@ const isLocalExecution =
   "ENVIRONMENT" in process.env && process.env.ENVIRONMENT === "local";
 
 const cookieOptions = {
-  domain: ".shulkpay." + (isLocalExecution ? "test" : "com"),
+  domain: isLocalExecution ? ".shulkpay.test" : ".ec2-3-83-101-88.compute-1.amazonaws.com",
   // secure: (isLocalExecution) ? false : true,
+  secure: false,
   // cookie expires in 1 hour if local, 1 month otherwise
   maxAge: (isLocalExecution ? 1 : 30 * 24) * 3600 * 1000
 };
 
 const cookieDeleteOptions = {
-  domain: ".arzooo." + (isLocalExecution ? "test" : "com"),
-  secure: isLocalExecution ? false : true
+  domain: isLocalExecution ? ".shulkpay.test" : ".ec2-3-83-101-88.compute-1.amazonaws.com",
+  //secure: isLocalExecution ? false : true
+  secure: false
 };
 
 function getCookie(req, name) {
