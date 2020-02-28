@@ -28,11 +28,11 @@ app.get('/', function (req, res) {
 });
 
 let corsOptions = {
-    origin: 'http://localhost',
+    origin: 'http://localhost:3000',
     credentials: true,
 }
 if(isProd) {
-	corsOptions.origin = 'http://ec2-3-83-101-88.compute-1.amazonaws.com'
+	corsOptions.origin = 'http://www.shulkpay.com'
 }
 app.use(cookieParser())
 
@@ -42,7 +42,7 @@ if(isProd){
   app.enable('view cache')
   //app.disable("view cache");
   //app.disable('etag')
-  app.use(vhost('ec2-3-83-101-88.compute-1.amazonaws.com', apiRouter))
+  app.use(vhost('shulkpay.com', apiRouter))
 }
 else {
   app.disable("view cache");
