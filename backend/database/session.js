@@ -30,7 +30,7 @@ const globalSessionConfig = {
   genid: function(req) {
     return uuid();
   },
-  name: "sessionId",
+  name: "sessionIds",
   proxy: true,
   secret: "pravin",
   resave: false,
