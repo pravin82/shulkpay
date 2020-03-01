@@ -9,6 +9,7 @@ const DynamoDBStore = require("connect-dynamodb")({
 
 
 AWS.config.region = "us-east-1";
+AWS.config.endpoint = "https://dynamodb.us-east-1.amazonaws.com "
 
 const dynamoDBConfig = {
   table: "shulkpay-sessions",
