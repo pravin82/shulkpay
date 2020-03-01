@@ -12,7 +12,7 @@ AWS.config.region = "us-east-1";
 AWS.config.endpoint = "https://dynamodb.us-east-1.amazonaws.com "
 
 const dynamoDBConfig = {
-  table: "shulkpay-sessions",
+  table: "shulkpay-session",
   client: new AWS.DynamoDB(),
   AWSRegion: "us-east-1",
   reapInterval: 3600 * 1000
@@ -30,7 +30,7 @@ const globalSessionConfig = {
   genid: function(req) {
     return uuid();
   },
-  name: "sessionIds",
+  name: "sessionId",
   proxy: true,
   secret: "pravin",
   resave: false,
@@ -48,7 +48,7 @@ module.exports = function() {
     envConfig.store = new DynamoDBStore(dynamoDBConfig);
     envConfig.cookie = {
       httpOnly: false,
-      domain: ".shulkpay.com",
+      domain: "ec2-54-173-218-163.compute-1.amazonaws.com",
       secure: true,
       maxAge: 30 * 24 * 3600 * 1000, // 1 month
       path: "/"
