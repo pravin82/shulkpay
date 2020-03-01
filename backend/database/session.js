@@ -11,7 +11,7 @@ const DynamoDBStore = require("connect-dynamodb")({
 AWS.config.region = "us-east-1";
 
 const dynamoDBConfig = {
-  table: "shulkpay-session",
+  table: "shulkpay-sessions",
   client: new AWS.DynamoDB(),
   AWSRegion: "us-east-1",
   reapInterval: 3600 * 1000
