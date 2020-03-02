@@ -48,7 +48,7 @@ module.exports = function() {
     envConfig.store = new DynamoDBStore(dynamoDBConfig);
     envConfig.cookie = {
       httpOnly: false,
-      domain: "ec2-54-173-218-163.compute-1.amazonaws.com",
+      domain: "www.shulkpay.com",
       secure: true,
       maxAge: 30 * 24 * 3600 * 1000, // 1 month
       path: "/"

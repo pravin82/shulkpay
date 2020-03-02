@@ -2,7 +2,7 @@ const isLocalExecution =
   "ENVIRONMENT" in process.env && process.env.ENVIRONMENT === "local";
 
 const cookieOptions = {
-  domain: isLocalExecution ? ".shulkpay.test" : ".shulkpay.com",
+  domain: isLocalExecution ? ".shulkpay.test" : "www.shulkpay.com",
   // secure: (isLocalExecution) ? false : true,
   secure: false,
   // cookie expires in 1 hour if local, 1 month otherwise
@@ -10,7 +10,7 @@ const cookieOptions = {
 };
 
 const cookieDeleteOptions = {
-  domain: isLocalExecution ? ".shulkpay.test" : ".shulkpay.com",
+  domain: isLocalExecution ? ".shulkpay.test" : "www.shulkpay.com",
   //secure: isLocalExecution ? false : true
   secure: false
 };
