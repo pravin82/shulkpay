@@ -34,6 +34,7 @@ let corsOptions = {
 if(isProd) {
 	corsOptions.origin = 'https://www.shulkpay.com'
 }
+app.set('trust proxy', true);
 app.use(cookieParser())
 
 app.use(cors(corsOptions));
