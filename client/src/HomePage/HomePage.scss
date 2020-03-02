@@ -1,3 +1,25 @@
+$breakpoints: (
+  'small':  767px,
+  'medium': 992px,
+  'large':  1200px
+) !default;
+
+
+@mixin respond-to($breakpoint) {
+  // If the key exists in the map
+  @if map-has-key($breakpoints, $breakpoint) {
+    // Prints a media query based on the value
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+ 
+  // If the key doesn't exist in the map
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}
 
 .btn-due {
   position : absolute;
@@ -34,7 +56,9 @@
 .search-section {
   display:flex;
   justify-content:center;
-  margin-top:50px
+  margin-top:50px;
+  flex-wrap:wrap;
+  width:100%
 }
 
 .students {
@@ -60,6 +84,15 @@
 
 .student-section{
   margin-right: 50px
+}
+
+.search-bar {
+  margin:10px;
+  margin-top:50px;
+  width: 100%;
+  @include respond-to('large') {
+    width: 800px
+  }
 }
 
 

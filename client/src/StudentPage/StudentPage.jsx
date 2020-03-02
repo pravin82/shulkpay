@@ -12,6 +12,9 @@ import Button from '@material-ui/core/Button';
 import constantUtils from "../constant.js";
 import MuiAlert from '@material-ui/lab/Alert';
 import Typography from '@material-ui/core/Typography';
+import { withTheme } from '@material-ui/core/styles';
+
+
 const url = constantUtils.baseUrl;
 
 axios.defaults.withCredentials = true;
@@ -26,7 +29,7 @@ const StyledFormControl= withStyles({
   }
 })(FormControl);
 
-export class StudentPage extends React.Component {
+class StudentPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -267,3 +270,5 @@ render() {
     );
   }
 }
+
+export default withTheme(StudentPage)

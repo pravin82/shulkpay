@@ -20,6 +20,10 @@ import constantUtils from "../constant.js";
 import {StudentDetailPage} from "../StudentPage/StudentDetailPage"
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import { withTheme } from '@material-ui/core/styles';
+//import { withTheme } from 'styled-components'
+
+
 
 
 const url = constantUtils.baseUrl;
@@ -30,6 +34,9 @@ const StyledFormControl= withStyles({
     minWidth:"120px"
   }
 })(FormControl);
+
+
+
 const Result = ({thisR}) => {
   return thisR.state.results.map(r => (
     <div className = "student"
@@ -164,14 +171,10 @@ class HomePage extends React.Component {
         this.handleSearch = this.handleSearch.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.handleClassDue  = this.handleClassDue.bind(this);
-
-
-
     }
 
     componentDidMount() {
-       this.setState(JSON.parse(localStorage.getItem('user')))
-       
+       this.setState(JSON.parse(localStorage.getItem('user')))  
     }
     handleLogOut(e) {
         localStorage.removeItem('user');
@@ -188,7 +191,7 @@ class HomePage extends React.Component {
     handleAddStudent(e) {
         this.props.history.push('/student'); 
     }
-     handleDueOpen() {
+    handleDueOpen() {
       this.setState({dueOpen:true})
     }
 
@@ -251,6 +254,10 @@ class HomePage extends React.Component {
 
 
     render() {
+      const { theme } = this.props
+      const  wi = theme.breakpoints.width('sm')
+      console.log("thisWi++++", wi)
+      //const { classes } = this.props
         return (
           
             <div>
@@ -273,15 +280,13 @@ class HomePage extends React.Component {
                {<StudentClass this = {this}/>}
            </StyledFormControl>
                <MuiThemeProvider>
+               <div className = 'search-bar'>
                <SearchBar 
                 name = "searchPhrase"
                 onChange={this.handleSearchChange}
                 onRequestSearch={this.handleSearch}
-                style={{
-                   width:800,
-                   marginLeft:100
-                }}
                />
+               </div>
                </MuiThemeProvider>
                </div>
                <div className = 'students'>
@@ -323,4 +328,6 @@ class HomePage extends React.Component {
     }
 }
 
-export { HomePage };
+
+export default withTheme(HomePage)
+

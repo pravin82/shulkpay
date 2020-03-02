@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { PrivateRoute } from '../components/PrivateRoute';
-import { HomePage } from '../HomePage/HomePage';
+import  HomePage from '../HomePage/HomePage';
 import { MainPage } from '../LoginPage/MainPage';
-import { StudentPage } from '../StudentPage/StudentPage';
+import  StudentPage  from '../StudentPage/StudentPage';
 import { StudentDetailPage } from '../StudentPage/StudentDetailPage';
 
 
