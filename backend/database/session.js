@@ -49,7 +49,7 @@ module.exports = function() {
 
 
   if (!("ENVIRONMENT" in process.env && process.env.ENVIRONMENT === "local")) {
-    envConfig.store = new DynamoDBStore(dynamoDBConfig);
+   // envConfig.store = new DynamoDBStore(dynamoDBConfig);
     envConfig.cookie = {
       httpOnly: false,
       domain: ".shulkpay.com",
