@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 const app = (module.exports = express());
 const path = require('path')
-const cookieParser = require('cookie-parser')
 
 
 
@@ -35,7 +34,6 @@ if(isProd) {
 	corsOptions.origin = 'https://www.shulkpay.com'
 }
 app.set('trust proxy', true);
-app.use(cookieParser())
 
 app.use(cors(corsOptions));
 app.use(session());
