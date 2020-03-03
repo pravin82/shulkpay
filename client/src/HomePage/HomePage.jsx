@@ -226,15 +226,36 @@ class HomePage extends React.Component {
 
 
     render() {
-           console.log("this.propss++++", this.props)
 
         return (
 
             <div>
-            <div className="parent">
-            <div className = "school">
-            <h1> {JSON.parse(localStorage.getItem('user')).school_name}</h1>
+            <div className = 'top-section'>
+            <div>
+            <Button variant="contained" 
+                    onClick={this.handleClassDue} 
+                    onClick={this.handleDueOpen}
+                    style = {{
+                      backgroundColor:"#FF4500",
+                      color:"#ffffff"    
+                    }} 
+            >
+            Add Class Due
+            </Button> 
             </div>
+            <div className = "school">
+            <h1 className = "school-text"> {JSON.parse(localStorage.getItem('user')).school_name}</h1>
+            </div>
+            <div>
+            <Button variant="outlined" 
+                    color = 'primary'  
+                    onClick={this.handleLogOut}
+                    style = {{width:150}} >
+            Logout
+            </Button>
+            </div> 
+            </div>
+            <div className="parent">
             <div className="button-container"> 
             <Button variant="contained"
                     color = 'primary' 
@@ -245,44 +266,22 @@ class HomePage extends React.Component {
             Add Student
             </Button>
             </div>
-           
-              <div className = "search-section">
-              <StyledFormControl variant = "outlined" >
-               <DropDown handler = {this.handleChange}/>
-              </StyledFormControl>
-               
-               <MuiThemeProvider>
-               <div className = 'search-bar'>
-               <SearchBar 
-                name = "searchPhrase"
-                onChange={this.handleSearchChange}
-                onRequestSearch={this.handleSearch}
-               />
-               </div>
-               </MuiThemeProvider>
-               </div>
-               <div className = 'students'>
-               <Result thisR={this}  />
-               </div>
+            <div className = "search-section">
+            <StyledFormControl variant = "outlined" >
+            <DropDown handler = {this.handleChange}/>
+            </StyledFormControl>
+            <MuiThemeProvider>
+            <div className = 'search-bar'>
+            <SearchBar name = "searchPhrase"
+                       onChange={this.handleSearchChange}
+                       onRequestSearch={this.handleSearch}
+            />
             </div>
-            <div className = 'btn-logout'>
-             <Button variant="outlined" 
-                     color = 'primary'  
-                     onClick={this.handleLogOut}
-                     style = {{width:150}} >
-              Logout
-             </Button>
+            </MuiThemeProvider>
             </div>
-            <div className = 'btn-due'>
-             <Button variant="contained" 
-                     onClick={this.handleClassDue} 
-                     onClick={this.handleDueOpen}
-                     style = {{
-                       backgroundColor:"#FF4500",
-                       color:"#ffffff"    
-                    }} >
-             Add Class Due
-            </Button> 
+            <div className = 'students'>
+            <Result thisR={this}  />
+            </div>
             </div>
             {this.state.dueOpen && (<DueModal this = {this}/>)}
             { this.state.dueBarOpen && (
@@ -290,10 +289,10 @@ class HomePage extends React.Component {
             <Alert  severity="success" 
                     onClose = {this.handleDueBarClose} 
                     style = {{backgroundColor:'#FF4500'}}>
-              Due Added Successfuly!
+            Due Added Successfuly!
             </Alert>
             </Snackbar>
-        )}
+            )}
             </div>        
             
         );
