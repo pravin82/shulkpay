@@ -68,7 +68,7 @@ function DueModal(props) {
           <DialogTitle id="form-dialog-title">Add Due</DialogTitle>
           <DialogContent>
           <div className = "form-fee">
-          <StyledFormControl>
+          <StyledFormControl >
           <DropDown handler = {props.this.handleChange} dueClass = {true}/>
           
           </StyledFormControl>
@@ -80,6 +80,7 @@ function DueModal(props) {
             type="number"
             onChange={props.this.handleChange}
             name = "amount"
+            variant = "outlined"
            />
             <TextField
             autoFocus
@@ -89,6 +90,7 @@ function DueModal(props) {
             type="text"
             onChange={props.this.handleChange}
             name = "remarks"
+            variant = "outlined"
            />
           
             </div>

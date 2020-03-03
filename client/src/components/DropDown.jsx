@@ -44,7 +44,7 @@ export default function DropDown(props) {
           name = {props.dueClass ? "dueClass" : "studentClass"}
           onChange={handleChange}
           labelWidth={labelWidth}
-          style = {{height:48}}
+          style = {props.dueClass ? {height:40} : {height:48}}
         >
           <MenuItem value={'NURSERY'}>Nursery</MenuItem>
             <MenuItem value={'LKG'}>LKG</MenuItem>
