@@ -20,9 +20,7 @@ import constantUtils from "../constant.js";
 import {StudentDetailPage} from "../StudentPage/StudentDetailPage"
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { withTheme } from '@material-ui/core/styles';
-//import { withTheme } from 'styled-components'
-
+import  DropDown  from '../components/DropDown';
 
 
 
@@ -36,6 +34,10 @@ const StyledFormControl= withStyles({
     marginBottom:"10px"
   }
 })(FormControl);
+
+
+
+
 
 
 
@@ -69,7 +71,8 @@ function DueModal(props) {
           <DialogContent>
           <div className = "form-fee">
           <StyledFormControl>
-          {<StudentClass this = {props.this} dueClass = {true}/>}
+          <DropDown handler = {props.this.handleChange} dueClass = {true}/>
+          
           </StyledFormControl>
           <TextField
             autoFocus
@@ -112,41 +115,6 @@ function DueModal(props) {
             </Dialog>
 }
 
-function StudentClass(props) {
-    return  <div>
-            <InputLabel id="demo-controlled-open-select-label"
-                         style = {{width: '100%'}}
-             >
-            Class
-            </InputLabel>
-             <Select
-                labelId="demo-controlled-open-select-label"
-                id="demo-controlled-open-select"
-                open={props.this.state.Classopen}
-                name = {props.dueClass ? "dueClass" : "studentClass"}
-                style = {{width: '100%'}}
-                onClose={props.this.handleClose}
-                onOpen={props.this.handleOpen}
-                value={props.dueClass ? props.this.state.dueClass : props.this.state.studentClass }
-                onChange={props.this.handleChange}
-              >
-            <MenuItem value={'NURSERY'}>Nursery</MenuItem>
-            <MenuItem value={'LKG'}>LKG</MenuItem>
-            <MenuItem value={'UKG'}>UKG</MenuItem>
-            <MenuItem value={'1'}>1</MenuItem>
-            <MenuItem value={'2'}>2</MenuItem>
-            <MenuItem value={'3'}>3</MenuItem>
-            <MenuItem value={'4'}>4</MenuItem>
-            <MenuItem value={'5'}>5</MenuItem>
-            <MenuItem value={'6'}>6</MenuItem>
-            <MenuItem value={'7'}>7</MenuItem>
-            <MenuItem value={'8'}>8</MenuItem>
-            <MenuItem value={'9'}>9</MenuItem>
-            <MenuItem value={'10'}>10</MenuItem>
-            </Select>
-            </div>
-}
-
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -160,7 +128,8 @@ class HomePage extends React.Component {
           dueBarOpen:false,
           amount:null,
           remarks:null,
-          results:[]
+          results:[],
+          labelWidth:0
         }
         this.handleLogOut = this.handleLogOut.bind(this);
         this.handleAddStudent = this.handleAddStudent.bind(this);
@@ -231,6 +200,7 @@ class HomePage extends React.Component {
         this.setState({classOpen:false}) 
     }
     handleChange(e) {
+        console.log("calledChanfe+++", e)
         const { name, value } = e.target;
         this.setState({ [name]: value });
     }
@@ -239,7 +209,9 @@ class HomePage extends React.Component {
     }
     handleSearch(e){
         let {studentClass, searchPhrase} = this.state
+        console.log("studentClass+++", studentClass)
         if(!studentClass){
+          console.log("Not studnetClass++++")
           return
         }
         axios.get(url + "/student/studentSearch/?studentClass=" + studentClass + "&searchPhrase=" + searchPhrase)
@@ -256,12 +228,10 @@ class HomePage extends React.Component {
 
 
     render() {
-      const { theme } = this.props
-      const  wi = theme.breakpoints.width('sm')
-      console.log("thisWi++++", wi)
-      //const { classes } = this.props
+           console.log("this.propss++++", this.props)
+
         return (
-          
+
             <div>
             <div className="parent">
             <div className = "school">
@@ -277,10 +247,12 @@ class HomePage extends React.Component {
             Add Student
             </Button>
             </div>
+           
               <div className = "search-section">
-               <StyledFormControl >
-               {<StudentClass this = {this}/>}
-           </StyledFormControl>
+              <StyledFormControl variant = "outlined" >
+               <DropDown handler = {this.handleChange}/>
+              </StyledFormControl>
+               
                <MuiThemeProvider>
                <div className = 'search-bar'>
                <SearchBar 
@@ -331,5 +303,5 @@ class HomePage extends React.Component {
 }
 
 
-export default withTheme(HomePage)
+export default HomePage
 
