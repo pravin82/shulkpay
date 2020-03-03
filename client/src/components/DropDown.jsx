@@ -17,10 +17,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function DropDown(props) {
-  console.log("propsDrop+++", props)
   const classes = useStyles();
   const [studentClass, setStudentclass] = React.useState('');
-  console.log("StudentDrop+++", studentClass)
   
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
@@ -46,6 +44,7 @@ export default function DropDown(props) {
           name = {props.dueClass ? "dueClass" : "studentClass"}
           onChange={handleChange}
           labelWidth={labelWidth}
+          style = {{height:48}}
         >
           <MenuItem value={'NURSERY'}>Nursery</MenuItem>
             <MenuItem value={'LKG'}>LKG</MenuItem>

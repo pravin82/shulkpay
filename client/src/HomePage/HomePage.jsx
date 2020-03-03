@@ -30,8 +30,6 @@ const url = constantUtils.baseUrl;
 const StyledFormControl= withStyles({
   root: {
     minWidth:"120px",
-    margin:"50px",
-    marginBottom:"10px"
   }
 })(FormControl);
 

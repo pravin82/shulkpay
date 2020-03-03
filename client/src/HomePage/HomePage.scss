@@ -87,11 +87,11 @@ $breakpoints: (
 }
 
 .search-bar {
-  margin:10px;
-  margin-top:50px;
+  margin:8px;
   width: 100%;
   @include respond-to('large') {
-    width: 800px
+    width: 800px;
+    margin-left:80px
   }
 }
 
