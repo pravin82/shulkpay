@@ -21,6 +21,8 @@ import {StudentDetailPage} from "../StudentPage/StudentDetailPage"
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import  DropDown  from '../components/DropDown';
+import  TemporaryDrawer from '../components/Drawer';
+
 
 
 
@@ -113,6 +115,7 @@ function DueModal(props) {
             </div>
             </DialogActions>
             </Dialog>
+
 }
 
 
@@ -200,7 +203,6 @@ class HomePage extends React.Component {
         this.setState({classOpen:false}) 
     }
     handleChange(e) {
-        console.log("calledChanfe+++", e)
         const { name, value } = e.target;
         this.setState({ [name]: value });
     }
@@ -245,9 +247,6 @@ class HomePage extends React.Component {
             Add Class Due
             </Button> 
             </div>
-            <div className = "school">
-            <h1 className = "school-text"> {JSON.parse(localStorage.getItem('user')).school_name}</h1>
-            </div>
             <div>
             <Button variant="outlined" 
                     color = 'primary'  
@@ -256,6 +255,9 @@ class HomePage extends React.Component {
             Logout
             </Button>
             </div> 
+            </div>
+            <div className = "school">
+            <h1 className = "school-text"> {JSON.parse(localStorage.getItem('user')).school_name}</h1>
             </div>
             <div className="parent">
             <div className="button-container"> 
@@ -295,6 +297,9 @@ class HomePage extends React.Component {
             </Alert>
             </Snackbar>
             )}
+             <div>
+            <TemporaryDrawer/>
+            </div>
             </div>        
             
         );
