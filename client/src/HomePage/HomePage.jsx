@@ -20,8 +20,8 @@ import constantUtils from "../constant.js";
 import {StudentDetailPage} from "../StudentPage/StudentDetailPage"
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import  DropDown  from '../components/DropDown';
-import  TemporaryDrawer from '../components/Drawer';
+import DropDown  from '../components/DropDown';
+import TemporaryDrawer from '../components/Drawer';
 
 
 
@@ -261,9 +261,9 @@ class HomePage extends React.Component {
             </Button> 
             </div>
             <div>
-            <Button variant="outlined" 
-                    color = 'primary'  
+            <Button variant="outlined"  
                     onClick={this.handleLogOut}
+                    color = 'primary'  
                     style = {{width:150}} >
             Logout
             </Button>

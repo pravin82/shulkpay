@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -16,6 +15,20 @@ const useStyles = makeStyles({
     height:300
   }
 });
+
+const styles = {
+    button: {
+        width: 32, height: 32,
+        padding: 0
+    },
+    icon: {
+        fontSize:40,
+        color:'#fffff'
+    },
+    tooltip: {
+        marginLeft:7
+    }
+};
 
 export default function TemporaryDrawer() {
   const classes = useStyles();
@@ -52,8 +65,11 @@ export default function TemporaryDrawer() {
  
   return (
     <div>
-      <IconButton onClick={toggleDrawer('top', true)} style = {{padding:0}}>
-       <MenuIcon />
+      <IconButton onClick={toggleDrawer('top', true)} 
+                  style = {styles.button}
+
+      >
+       <MenuIcon style = {{fontSize:32}} />
       </IconButton>
       <Drawer open={state.top} onClose={toggleDrawer('top', false)}>
         {sideList('top')}

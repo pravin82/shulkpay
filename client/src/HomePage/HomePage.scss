@@ -1,23 +1,52 @@
+// A map of breakpoints.
+
 $breakpoints: (
-  'small':  767px,
-  'medium': 992px,
-  'large':  1200px
-) !default;
+  xs: 576px,
+  sm: 768px,
+  md: 992px,
+  lg: 1200px
+);
 
+@mixin respond-above($breakpoint) {
 
-@mixin respond-to($breakpoint) {
-  // If the key exists in the map
+  // If the breakpoint exists in the map.
   @if map-has-key($breakpoints, $breakpoint) {
-    // Prints a media query based on the value
-    @media (min-width: map-get($breakpoints, $breakpoint)) {
+
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+    // Write the media query.
+    @media (min-width: $breakpoint-value) {
       @content;
     }
+
+  // If the breakpoint doesn't exist in the map.
+  } @else {
+
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
   }
- 
-  // If the key doesn't exist in the map
-  @else {
-    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
-        + "Available breakpoints are: #{map-keys($breakpoints)}.";
+}
+
+
+@mixin respond-below($breakpoint) {
+
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+    // Write the media query.
+    @media (max-width: ($breakpoint-value - 1)) {
+      @content;
+    }
+
+  // If the breakpoint doesn't exist in the map.
+  } @else {
+
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
   }
 }
 
@@ -41,7 +70,8 @@ $breakpoints: (
   top:3%;
   padding:0;
   padding-top:4px;
-  @include respond-to('large') {
+  margin-left:10px;
+  @include respond-above('lg') {
   display:none
   }
 }
@@ -52,7 +82,11 @@ $breakpoints: (
   font-weight:bold;
   width:100%;
   position:absolute;
-  top:3%
+  top:3%;
+  pointer-events:none;
+  @include respond-below('md') {
+  left:5% 
+  }
 }
 
 .search-section {
@@ -91,14 +125,14 @@ $breakpoints: (
 .search-bar {
   margin:8px;
   width: 100%;
-  @include respond-to('large') {
+  @include respond-above('lg') {
     width: 800px;
     margin-left:80px
   }
 }
 
 .top-section {
-  @include respond-to('large') {
+  @include respond-above('lg') {
     display:flex;
     top:3%;
     position:absolute;
@@ -111,7 +145,8 @@ $breakpoints: (
 }
 
 .school-text {
-  margin:0
+  margin:0;
+  font-family:auto;
 }
 
 
