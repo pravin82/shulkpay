@@ -11,22 +11,19 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles({
   list: {
-    width: "100vw",
+    width: "50vw",
     height:300
+  },
+  drawerPaper: {
+    height:100
   }
+
 });
 
 const styles = {
     button: {
         width: 32, height: 32,
         padding: 0
-    },
-    icon: {
-        fontSize:40,
-        color:'#fffff'
-    },
-    tooltip: {
-        marginLeft:7
     }
 };
 
@@ -54,9 +51,13 @@ export default function TemporaryDrawer() {
     >
       <List>
         {['Add Class Due', 'Logout'].map((text, index) => (
-          <ListItem button key={text}>
-          <ListItemText primary={text} />
-          </ListItem>
+         <ListItemText primary={text}
+                       style  = {{marginLeft:20, 
+                                 marginBottom:20
+                               }} 
+                                            
+
+          />
         ))}
       </List>
     </div>
@@ -71,8 +72,13 @@ export default function TemporaryDrawer() {
       >
        <MenuIcon style = {{fontSize:32}} />
       </IconButton>
-      <Drawer open={state.top} onClose={toggleDrawer('top', false)}>
-        {sideList('top')}
+      <Drawer open={state.top} 
+              onClose={toggleDrawer('top', false)}
+              anchor = 'left'
+              style = {{marginTop:'15%'}}
+              classes = {{paper: classes.drawerPaper}}
+      >
+              {sideList('top')}
       </Drawer>
     </div>
   );
