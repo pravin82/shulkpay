@@ -31,11 +31,12 @@ function isAuthenticated(req, res, next) {
 
 async function loginStatus(req, res, params) {
   const userId = params.userId
-  let loginStatus = 0
+  let loginResp = {}
+  loginStatus.loginStatus = 0
   if (req.session.userId && (userId == req.session.userId)) {
-    loginStatus = 1
+    loginResp.loginStatus = 1
   }
-  return loginStatus
+  return loginResp
 }
 
 module.exports = {

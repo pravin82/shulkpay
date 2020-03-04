@@ -18,7 +18,6 @@ async function addStudent(req, res, params) {
 }
 
 async function searchStudent(req, res, params) {
-	console.log("Inside Search Student func++")
 	const validatorResp = studentValidator.searchStudentValidator(params);
 	if (validatorResp.error) return validatorResp;
 	let {schoolId} = req.session

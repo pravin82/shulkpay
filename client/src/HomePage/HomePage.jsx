@@ -148,7 +148,7 @@ class HomePage extends React.Component {
     }
 
     componentDidMount() {
-      let userId = localStorage.getItem('user').id
+      let userId = JSON.parse(localStorage.getItem('user')).id
       axios.get(url + "/user/loginStatus/?userId=" + userId)
       .then(response => {
           if (response.data.status == 'error') alert(response.data.msg)
