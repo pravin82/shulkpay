@@ -29,7 +29,11 @@ router.post('/login', function (req, res, next) {
   })(req, res, next)
 })
 
-
+router.get("/loginStatus", async (req, res) => {
+	const params = lodash.pick(req.query, ["userId"]);
+	const statusResp = await userHelper.loginStatus(req, res, params);
+	res.send(statusResp);
+});
 
 
 

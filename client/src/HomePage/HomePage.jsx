@@ -148,7 +148,20 @@ class HomePage extends React.Component {
     }
 
     componentDidMount() {
-       this.setState(JSON.parse(localStorage.getItem('user')))  
+      let userId = localStorage.getItem('user').id
+      axios.get(url + "/user/loginStatus/?userId=" + userId)
+      .then(response => {
+          if (response.data.status == 'error') alert(response.data.msg)
+          else {
+              if (response.data.loginStatus == 1) {
+                this.setState(JSON.parse(localStorage.getItem('user')))
+              }
+              else {
+                localStorage.removeItem('user');
+                this.props.history.push('/login'); 
+              }    
+          }    
+      })  
     }
     handleLogOut(e) {
         localStorage.removeItem('user');

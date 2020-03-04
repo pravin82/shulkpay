@@ -29,7 +29,17 @@ function isAuthenticated(req, res, next) {
   }
 }
 
+async function loginStatus(req, res, params) {
+  const userId = params.userId
+  let loginStatus = 0
+  if (req.session.userId && (userId == req.session.userId)) {
+    loginStatus = 1
+  }
+  return loginStatus
+}
+
 module.exports = {
 	saveSessionAndCookie,
-	isAuthenticated
+	isAuthenticated,
+	loginStatus
 };
