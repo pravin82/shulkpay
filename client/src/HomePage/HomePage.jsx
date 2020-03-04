@@ -164,6 +164,7 @@ class HomePage extends React.Component {
       })  
     }
     handleLogOut(e) {
+        console.log("calledLogout+++")
         localStorage.removeItem('user');
         this.props.history.push('/login');  
     }
@@ -187,6 +188,7 @@ class HomePage extends React.Component {
     }
 
     handleClassDue(e) {
+      console.log("Due Called++")
       const {amount, remarks} = this.state
       const studentClass = this.state.dueClass
       let values = {amount: -amount, mop: remarks, studentClass:studentClass}                       
@@ -224,9 +226,7 @@ class HomePage extends React.Component {
     }
     handleSearch(e){
         let {studentClass, searchPhrase} = this.state
-        console.log("studentClass+++", studentClass)
         if(!studentClass){
-          console.log("Not studnetClass++++")
           return
         }
         axios.get(url + "/student/studentSearch/?studentClass=" + studentClass + "&searchPhrase=" + searchPhrase)
@@ -310,8 +310,10 @@ class HomePage extends React.Component {
             </Alert>
             </Snackbar>
             )}
-             <div className = "drawer">
-            <TemporaryDrawer/>
+            <div className = "drawer">
+            <TemporaryDrawer  handleLogOut = {this.handleLogOut}
+                              handleDueOpen = {this.handleDueOpen}
+            />
             </div>
             </div>        
             

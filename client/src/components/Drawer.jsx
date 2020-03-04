@@ -27,17 +27,20 @@ const styles = {
     }
 };
 
-export default function TemporaryDrawer() {
+
+
+export default function TemporaryDrawer(props) {
+  console.log("DRAWERpROPS+++", props)
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false
   })
 
+
   const toggleDrawer = (side, open) => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
     setState({ ...state, [side]: open });
   };
 
@@ -45,20 +48,24 @@ export default function TemporaryDrawer() {
     <div
       className={classes.list}
       role="presentation"
-      onClick={toggleDrawer(side, false)}
+      //onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
 
     >
       <List>
-        {['Add Class Due', 'Logout'].map((text, index) => (
-         <ListItemText primary={text}
-                       style  = {{marginLeft:20, 
-                                 marginBottom:20
-                               }} 
-                                            
-
-          />
-        ))}
+      <ListItemText primary={"Add Class Due"}
+                    style  = {{marginLeft:20, 
+                              marginBottom:20
+                             }} 
+                    onClick = {props.handleDueOpen}
+     />
+     <ListItemText primary={"Logout"}
+                    style  = {{marginLeft:20, 
+                              marginBottom:20
+                             }} 
+                    onClick = {props.handleLogOut}
+     />
+        
       </List>
     </div>
   );
