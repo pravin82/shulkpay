@@ -36,7 +36,15 @@ $breakpoints: (
   margin-top:130px
 }
 
-
+.drawer {
+  position:absolute;
+  top:3%;
+  padding:0;
+  padding-top:4px;
+  @include respond-to('large') {
+  display:none
+  }
+}
 
 .school {
   display: flex;

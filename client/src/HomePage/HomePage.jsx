@@ -310,7 +310,7 @@ class HomePage extends React.Component {
             </Alert>
             </Snackbar>
             )}
-             <div>
+             <div className = "drawer">
             <TemporaryDrawer/>
             </div>
             </div>        

@@ -7,23 +7,20 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles({
   list: {
-    width: 250,
-  },
-  fullList: {
-    width: 'auto',
-  },
+    width: "100vw",
+    height:300
+  }
 });
 
 export default function TemporaryDrawer() {
   const classes = useStyles();
   const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
+    top: false
   })
 
   const toggleDrawer = (side, open) => event => {
@@ -40,68 +37,26 @@ export default function TemporaryDrawer() {
       role="presentation"
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
+
     >
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        {['Add Class Due', 'Logout'].map((text, index) => (
           <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <ListItemIcon /> : <ListItemIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <ListItemIcon /> : <ListItemIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+          <ListItemText primary={text} />
           </ListItem>
         ))}
       </List>
     </div>
   );
 
-  const fullList = side => (
-    <div
-      className={classes.fullList}
-      role="presentation"
-      onClick={toggleDrawer(side, false)}
-      onKeyDown={toggleDrawer(side, false)}
-    >
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <ListItemIcon /> : <ListItemIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <ListItemIcon /> : <ListItemIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
-
+ 
   return (
     <div>
-      <Button onClick={toggleDrawer('left', true)}>Open Left</Button>
-      <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
-        {sideList('left')}
-      </Drawer>
-      <Drawer anchor="top" open={state.top} onClose={toggleDrawer('top', false)}>
-        {fullList('top')}
-      </Drawer>
-      <Drawer anchor="bottom" open={state.bottom} onClose={toggleDrawer('bottom', false)}>
-        {fullList('bottom')}
-      </Drawer>
-      <Drawer anchor="right" open={state.right} onClose={toggleDrawer('right', false)}>
-        {sideList('right')}
+      <IconButton onClick={toggleDrawer('top', true)} style = {{padding:0}}>
+       <MenuIcon />
+      </IconButton>
+      <Drawer open={state.top} onClose={toggleDrawer('top', false)}>
+        {sideList('top')}
       </Drawer>
     </div>
   );
