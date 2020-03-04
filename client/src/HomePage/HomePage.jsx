@@ -11,7 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
-import {withStyles } from '@material-ui/core/styles';
+import {withStyles, makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import axios from "axios";
 import "../index.css"
@@ -40,7 +40,6 @@ const StyledFormControl= withStyles({
 
 
 
-
 const Result = ({thisR}) => {
   return thisR.state.results.map(r => (
     <div className = "student"
@@ -61,18 +60,26 @@ function Alert(props) {
 
 
 function DueModal(props) {
+  const useStyles = makeStyles({
+  drawerPaper: {
+    width:"100%",
+    margin:8
+  }
+
+  });
+  const classes = useStyles()
   return <Dialog 
             open={true} 
             onClose={props.this.handleDueClose}
             aria-labelledby="form-dialog-title"
             fullWidth = "true"
+            classes = {{paper: classes.drawerPaper}}
           >
           <DialogTitle id="form-dialog-title">Add Due</DialogTitle>
           <DialogContent>
           <div className = "form-fee">
           <StyledFormControl >
           <DropDown handler = {props.this.handleChange} dueClass = {true}/>
-          
           </StyledFormControl>
           <TextField
             autoFocus
@@ -83,8 +90,9 @@ function DueModal(props) {
             onChange={props.this.handleChange}
             name = "amount"
             variant = "outlined"
+            style = {{margin:8}}
            />
-            <TextField
+          <TextField
             autoFocus
             margin="dense"
             id="name"
@@ -93,6 +101,8 @@ function DueModal(props) {
             onChange={props.this.handleChange}
             name = "remarks"
             variant = "outlined"
+            style = {{margin:8}}
+            
            />
           
             </div>
@@ -300,7 +310,7 @@ class HomePage extends React.Component {
             <Result thisR={this}  />
             </div>
             </div>
-            {this.state.dueOpen && (<DueModal this = {this}/>)}
+            {this.state.dueOpen && (<DueModal this = {this}  />)}
             { this.state.dueBarOpen && (
             <Snackbar open={this.state.dueBarOpen} autoHideDuration={6000} onClose = {this.handleDueBarClose} >
             <Alert  severity="success" 

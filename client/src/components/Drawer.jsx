@@ -30,7 +30,6 @@ const styles = {
 
 
 export default function TemporaryDrawer(props) {
-  console.log("DRAWERpROPS+++", props)
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false
