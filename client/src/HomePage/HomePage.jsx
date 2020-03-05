@@ -46,8 +46,11 @@ const Result = ({thisR}) => {
          onClick = {() => thisR.handleStudentDetail(r)}
     >
     <div className = "student-name"> Name :  {r.name}</div>
-    <div className = "student-section">Section : {r.section}</div>
+    <div className = "student-name-short">{r.name}</div>
     <div>Roll No: {r.roll_no}</div>
+    <div className = "student-section">Section : {r.section}</div>
+    <div className = "student-section-short">{r.section}</div>
+    
     </div>
 
    ))

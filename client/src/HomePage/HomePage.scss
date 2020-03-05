@@ -100,8 +100,10 @@ $breakpoints: (
 }
 
 .students {
+  @include respond-above('md') {
   margin-left:170px;
   margin-top:100px
+  }
 }
 
 .student {
@@ -111,17 +113,48 @@ $breakpoints: (
   box-shadow: rgba(0,0,0,0.8) 0 0 10px;
   align-items:center;
   height:40px;
-  width:80%
+  width:80%;
+  @include respond-below('md') {
+   width:90%;
+   margin-top:24px;
+   margin-bottom:24px;
+   margin-left:5%;
+   margin-right:5%;
+   position:relative
+  }
+
 }
 
-.student-name{
+.student-name {
   margin-right: 30px;
   width:400px;
-  margin-left:10px
+  margin-left:10px;
+  @include respond-below('md') {
+  display:none
+  }
+}
+
+.student-name-short {
+  width:200px;
+  margin-left:10px;
+  @include respond-above('md') {
+  display:none
+  }
 }
 
 .student-section{
-  margin-right: 50px
+  margin-left: 50px;
+  @include respond-below('md') {
+  display:none
+  }
+}
+
+.student-section-short {
+  right:20px;
+  position:absolute;
+  @include respond-above('md') {
+  display:none
+  }
 }
 
 .search-bar {
