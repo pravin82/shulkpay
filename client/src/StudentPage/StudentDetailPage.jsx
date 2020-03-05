@@ -22,6 +22,8 @@ import {withStyles } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import Pagination from '@material-ui/lab/Pagination';
+import TemporaryDrawer from '../components/Drawer';
+
 
 
 const url = constantUtils.baseUrl;
@@ -321,7 +323,7 @@ export class StudentDetailPage extends React.Component {
             </div>
             {this.state.studentObj &&
               ( <div>
-                <div style = {{marginTop:60}}>
+                <div className = "student-name-sd">
                 <h1 style = {{fontWeight: ' bold'}}> {this.state.studentObj.name}</h1>
                 </div>
                 <div className = "detail">
@@ -389,6 +391,9 @@ export class StudentDetailPage extends React.Component {
                     color="primary"
                     onChange = {this.handlePaginationChange}
        />
+        </div>
+        <div className = "drawer">
+        <TemporaryDrawer studentDetail = {true} />
         </div>
         
         </div>

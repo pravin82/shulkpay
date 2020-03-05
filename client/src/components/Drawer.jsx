@@ -47,7 +47,6 @@ export default function TemporaryDrawer(props) {
     <div
       className={classes.list}
       role="presentation"
-      //onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
 
     >
