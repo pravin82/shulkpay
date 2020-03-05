@@ -3,7 +3,6 @@ const studentValidator = require("./validator");
 
 async function addStudent(req, res, params) {
 	const validatorResp = studentValidator.addStudentValidator(params);
-	console.log("req,session+++", req.session)
 	let {schoolId} = req.session
 	if (validatorResp.error) return validatorResp;
 	let { name, studentSection, studentClass, rollNo } = req.body;
@@ -18,7 +17,6 @@ async function addStudent(req, res, params) {
 }
 
 async function searchStudent(req, res, params) {
-	console.log("Inside Search Student func++")
 	const validatorResp = studentValidator.searchStudentValidator(params);
 	if (validatorResp.error) return validatorResp;
 	let {schoolId} = req.session

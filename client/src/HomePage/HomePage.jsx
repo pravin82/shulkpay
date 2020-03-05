@@ -11,7 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
-import {withStyles } from '@material-ui/core/styles';
+import {withStyles, makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import axios from "axios";
 import "../index.css"
@@ -20,7 +20,9 @@ import constantUtils from "../constant.js";
 import {StudentDetailPage} from "../StudentPage/StudentDetailPage"
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import  DropDown  from '../components/DropDown';
+import DropDown  from '../components/DropDown';
+import TemporaryDrawer from '../components/Drawer';
+
 
 
 
@@ -38,15 +40,17 @@ const StyledFormControl= withStyles({
 
 
 
-
 const Result = ({thisR}) => {
   return thisR.state.results.map(r => (
     <div className = "student"
          onClick = {() => thisR.handleStudentDetail(r)}
     >
     <div className = "student-name"> Name :  {r.name}</div>
-    <div className = "student-section">Section : {r.section}</div>
+    <div className = "student-name-short">{r.name}</div>
     <div>Roll No: {r.roll_no}</div>
+    <div className = "student-section">Section : {r.section}</div>
+    <div className = "student-section-short">{r.section}</div>
+    
     </div>
 
    ))
@@ -59,18 +63,26 @@ function Alert(props) {
 
 
 function DueModal(props) {
+  const useStyles = makeStyles({
+  drawerPaper: {
+    width:"100%",
+    margin:8
+  }
+
+  });
+  const classes = useStyles()
   return <Dialog 
             open={true} 
             onClose={props.this.handleDueClose}
             aria-labelledby="form-dialog-title"
             fullWidth = "true"
+            classes = {{paper: classes.drawerPaper}}
           >
           <DialogTitle id="form-dialog-title">Add Due</DialogTitle>
           <DialogContent>
           <div className = "form-fee">
-          <StyledFormControl>
+          <StyledFormControl >
           <DropDown handler = {props.this.handleChange} dueClass = {true}/>
-          
           </StyledFormControl>
           <TextField
             autoFocus
@@ -80,8 +92,10 @@ function DueModal(props) {
             type="number"
             onChange={props.this.handleChange}
             name = "amount"
+            variant = "outlined"
+            style = {{margin:8}}
            />
-            <TextField
+          <TextField
             autoFocus
             margin="dense"
             id="name"
@@ -89,6 +103,9 @@ function DueModal(props) {
             type="text"
             onChange={props.this.handleChange}
             name = "remarks"
+            variant = "outlined"
+            style = {{margin:8}}
+            
            />
           
             </div>
@@ -111,6 +128,7 @@ function DueModal(props) {
             </div>
             </DialogActions>
             </Dialog>
+
 }
 
 
@@ -143,9 +161,23 @@ class HomePage extends React.Component {
     }
 
     componentDidMount() {
-       this.setState(JSON.parse(localStorage.getItem('user')))  
+      let userId = JSON.parse(localStorage.getItem('user')).id
+      axios.get(url + "/user/loginStatus/?userId=" + userId)
+      .then(response => {
+          if (response.data.status == 'error') alert(response.data.msg)
+          else {
+              if (response.data.loginStatus == 1) {
+                this.setState(JSON.parse(localStorage.getItem('user')))
+              }
+              else {
+                localStorage.removeItem('user');
+                this.props.history.push('/login'); 
+              }    
+          }    
+      })  
     }
     handleLogOut(e) {
+        console.log("calledLogout+++")
         localStorage.removeItem('user');
         this.props.history.push('/login');  
     }
@@ -169,6 +201,7 @@ class HomePage extends React.Component {
     }
 
     handleClassDue(e) {
+      console.log("Due Called++")
       const {amount, remarks} = this.state
       const studentClass = this.state.dueClass
       let values = {amount: -amount, mop: remarks, studentClass:studentClass}                       
@@ -198,7 +231,6 @@ class HomePage extends React.Component {
         this.setState({classOpen:false}) 
     }
     handleChange(e) {
-        console.log("calledChanfe+++", e)
         const { name, value } = e.target;
         this.setState({ [name]: value });
     }
@@ -207,9 +239,7 @@ class HomePage extends React.Component {
     }
     handleSearch(e){
         let {studentClass, searchPhrase} = this.state
-        console.log("studentClass+++", studentClass)
         if(!studentClass){
-          console.log("Not studnetClass++++")
           return
         }
         axios.get(url + "/student/studentSearch/?studentClass=" + studentClass + "&searchPhrase=" + searchPhrase)
@@ -226,15 +256,36 @@ class HomePage extends React.Component {
 
 
     render() {
-           console.log("this.propss++++", this.props)
 
         return (
 
             <div>
-            <div className="parent">
-            <div className = "school">
-            <h1> {JSON.parse(localStorage.getItem('user')).school_name}</h1>
+            <div className = 'top-section'>
+            <div>
+            <Button variant="contained" 
+                    onClick={this.handleClassDue} 
+                    onClick={this.handleDueOpen}
+                    style = {{
+                      backgroundColor:"#FF4500",
+                      color:"#ffffff"    
+                    }} 
+            >
+            Add Class Due
+            </Button> 
             </div>
+            <div>
+            <Button variant="outlined"  
+                    onClick={this.handleLogOut}
+                    color = 'primary'  
+                    style = {{width:150}} >
+            Logout
+            </Button>
+            </div> 
+            </div>
+            <div className = "school">
+            <h1 className = "school-text"> {JSON.parse(localStorage.getItem('user')).school_name}</h1>
+            </div>
+            <div className="parent">
             <div className="button-container"> 
             <Button variant="contained"
                     color = 'primary' 
@@ -245,55 +296,38 @@ class HomePage extends React.Component {
             Add Student
             </Button>
             </div>
-           
-              <div className = "search-section">
-              <StyledFormControl variant = "outlined" >
-               <DropDown handler = {this.handleChange}/>
-              </StyledFormControl>
-               
-               <MuiThemeProvider>
-               <div className = 'search-bar'>
-               <SearchBar 
-                name = "searchPhrase"
-                onChange={this.handleSearchChange}
-                onRequestSearch={this.handleSearch}
-               />
-               </div>
-               </MuiThemeProvider>
-               </div>
-               <div className = 'students'>
-               <Result thisR={this}  />
-               </div>
+            <div className = "search-section">
+            <StyledFormControl variant = "outlined" >
+            <DropDown handler = {this.handleChange}/>
+            </StyledFormControl>
+            <MuiThemeProvider>
+            <div className = 'search-bar'>
+            <SearchBar name = "searchPhrase"
+                       onChange={this.handleSearchChange}
+                       onRequestSearch={this.handleSearch}
+            />
             </div>
-            <div className = 'btn-logout'>
-             <Button variant="outlined" 
-                     color = 'primary'  
-                     onClick={this.handleLogOut}
-                     style = {{width:150}} >
-              Logout
-             </Button>
+            </MuiThemeProvider>
             </div>
-            <div className = 'btn-due'>
-             <Button variant="contained" 
-                     onClick={this.handleClassDue} 
-                     onClick={this.handleDueOpen}
-                     style = {{
-                       backgroundColor:"#FF4500",
-                       color:"#ffffff"    
-                    }} >
-             Add Class Due
-            </Button> 
+            <div className = 'students'>
+            <Result thisR={this}  />
             </div>
-            {this.state.dueOpen && (<DueModal this = {this}/>)}
+            </div>
+            {this.state.dueOpen && (<DueModal this = {this}  />)}
             { this.state.dueBarOpen && (
             <Snackbar open={this.state.dueBarOpen} autoHideDuration={6000} onClose = {this.handleDueBarClose} >
             <Alert  severity="success" 
                     onClose = {this.handleDueBarClose} 
                     style = {{backgroundColor:'#FF4500'}}>
-              Due Added Successfuly!
+            Due Added Successfuly!
             </Alert>
             </Snackbar>
-        )}
+            )}
+            <div className = "drawer">
+            <TemporaryDrawer  handleLogOut = {this.handleLogOut}
+                              handleDueOpen = {this.handleDueOpen}
+            />
+            </div>
             </div>        
             
         );

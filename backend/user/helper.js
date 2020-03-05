@@ -20,17 +20,27 @@ function deleteUserSession(req, res) {
 }
 
 function isAuthenticated(req, res, next) {
-  console.log("authUID+++", req.session.userId)
   if (req.session.userId && parseInt(req.session.userId) > 0) {
     return next()
   } else {
-    //deleteUserSession(req, res);
+    deleteUserSession(req, res);
     return res.json({ msg: "The user is not loggedIn",
                       status:"error" })
   }
 }
 
+async function loginStatus(req, res, params) {
+  const userId = params.userId
+  let loginResp = {}
+  loginStatus.loginStatus = 0
+  if (req.session.userId && (userId == req.session.userId)) {
+    loginResp.loginStatus = 1
+  }
+  return loginResp
+}
+
 module.exports = {
 	saveSessionAndCookie,
-	isAuthenticated
+	isAuthenticated,
+	loginStatus
 };

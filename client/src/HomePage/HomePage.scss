@@ -1,31 +1,56 @@
+// A map of breakpoints.
+
 $breakpoints: (
-  'small':  767px,
-  'medium': 992px,
-  'large':  1200px
-) !default;
+  xs: 576px,
+  sm: 768px,
+  md: 992px,
+  lg: 1200px
+);
 
+@mixin respond-above($breakpoint) {
 
-@mixin respond-to($breakpoint) {
-  // If the key exists in the map
+  // If the breakpoint exists in the map.
   @if map-has-key($breakpoints, $breakpoint) {
-    // Prints a media query based on the value
-    @media (min-width: map-get($breakpoints, $breakpoint)) {
+
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+    // Write the media query.
+    @media (min-width: $breakpoint-value) {
       @content;
     }
-  }
- 
-  // If the key doesn't exist in the map
-  @else {
-    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
-        + "Available breakpoints are: #{map-keys($breakpoints)}.";
+
+  // If the breakpoint doesn't exist in the map.
+  } @else {
+
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
   }
 }
 
-.btn-due {
-  position : absolute;
-  top: 3%;
-  left: 5%
+
+@mixin respond-below($breakpoint) {
+
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+    // Write the media query.
+    @media (max-width: ($breakpoint-value - 1)) {
+      @content;
+    }
+
+  // If the breakpoint doesn't exist in the map.
+  } @else {
+
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
 }
+
+
 
 .button-container {
   margin-top:80px;
@@ -34,23 +59,36 @@ $breakpoints: (
 
 
 .parent {
-  position: 'relative';
+  position: relative;
   width: 100%;
   height: 100%;
+  margin-top:130px
 }
 
-.btn-logout {
-   position:absolute;
-   top:3%;
-   right:5%;
+.drawer {
+  position:absolute;
+  top:3%;
+  padding:0;
+  padding-top:4px;
+  margin-left:10px;
+  @include respond-above('lg') {
+  display:none
+  }
 }
 
 .school {
   display: flex;
-  position: relative;
-  left: 35rem;
-  width:30%;
-  font-weight:bold
+  min-width:30%;
+  font-weight:bold;
+  position:absolute;
+  top:3%;
+  pointer-events:none;
+  @include respond-below('md') {
+  left:15% 
+  }
+  @include respond-above('md') {
+  width:100%
+  }
 }
 
 .search-section {
@@ -62,8 +100,10 @@ $breakpoints: (
 }
 
 .students {
+  @include respond-above('md') {
   margin-left:170px;
   margin-top:100px
+  }
 }
 
 .student {
@@ -73,26 +113,89 @@ $breakpoints: (
   box-shadow: rgba(0,0,0,0.8) 0 0 10px;
   align-items:center;
   height:40px;
-  width:80%
+  width:80%;
+  @include respond-below('md') {
+   width:90%;
+   margin-top:24px;
+   margin-bottom:24px;
+   margin-left:5%;
+   margin-right:5%;
+   position:relative
+  }
+
 }
 
-.student-name{
+.student-name {
   margin-right: 30px;
   width:400px;
-  margin-left:10px
+  margin-left:10px;
+  @include respond-below('md') {
+  display:none
+  }
+}
+
+.student-name-short {
+  width:200px;
+  margin-left:10px;
+  @include respond-above('md') {
+  display:none
+  }
 }
 
 .student-section{
-  margin-right: 50px
+  margin-left: 50px;
+  @include respond-below('md') {
+  display:none
+  }
+}
+
+.student-section-short {
+  right:20px;
+  position:absolute;
+  @include respond-above('md') {
+  display:none
+  }
 }
 
 .search-bar {
   margin:8px;
   width: 100%;
-  @include respond-to('large') {
+  @include respond-above('lg') {
     width: 800px;
     margin-left:80px
   }
+}
+
+.top-section {
+  @include respond-above('lg') {
+    display:flex;
+    top:3%;
+    position:absolute;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    left: 5%;
+    right:5%
+  }
+  display:none
+}
+
+.school-text {
+  margin:0;
+  font-family:auto;
+}
+
+.modal {
+  width:100%;
+  margin:8px
+}
+
+.form-fee {
+  width:100%;
+  display:flex;
+  @include respond-below('md') {
+  flex-direction:column
+  }
+  
 }
 
 
