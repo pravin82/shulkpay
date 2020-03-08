@@ -64,7 +64,7 @@ export default function TemporaryDrawer(props) {
                               color: '#85bf31'
 
                              }} 
-                    onClick = {props.handleLogOut}
+                    onClick = {props.handleFeeOpen}
      />
         
       </List>
@@ -74,7 +74,8 @@ export default function TemporaryDrawer(props) {
         <List>
       <ListItemText primary={"Add Class Due"}
                     style  = {{marginLeft:20, 
-                              marginBottom:20
+                              marginBottom:20,
+                              color:"#FF4500"
                              }} 
                     onClick = {props.handleDueOpen}
      />

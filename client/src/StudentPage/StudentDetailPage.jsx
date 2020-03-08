@@ -413,7 +413,11 @@ export class StudentDetailPage extends React.Component {
         </IconButton>
         </div>
         <div>
-        <TemporaryDrawer studentDetail = {true} />
+        <TemporaryDrawer studentDetail = {true} 
+                         handleDueOpen = {this.handleDueOpen}
+                         handleFeeOpen = {this.handleFeeOpen}
+
+        />
         </div>
         </div>
         </div>
