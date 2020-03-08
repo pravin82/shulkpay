@@ -201,7 +201,6 @@ class HomePage extends React.Component {
     }
 
     handleClassDue(e) {
-      console.log("Due Called++")
       const {amount, remarks} = this.state
       const studentClass = this.state.dueClass
       let values = {amount: -amount, mop: remarks, studentClass:studentClass}                       

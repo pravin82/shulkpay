@@ -35,7 +35,6 @@ export default function TemporaryDrawer(props) {
     top: false
   })
 
-
   const toggleDrawer = (side, open) => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -50,7 +49,29 @@ export default function TemporaryDrawer(props) {
       onKeyDown={toggleDrawer(side, false)}
 
     >
-      <List>
+    {props.studentDetail ? (
+        <List>
+      <ListItemText primary={"Add Due"}
+                    style  = {{marginLeft:20, 
+                              marginBottom:20,
+                              color:"#FF4500"
+                             }} 
+                    onClick = {props.handleDueOpen}
+     />
+     <ListItemText primary={"PayFee"}
+                    style  = {{marginLeft:20, 
+                              marginBottom:20,
+                              color: '#85bf31'
+
+                             }} 
+                    onClick = {props.handleLogOut}
+     />
+        
+      </List>
+
+    ):
+    (
+        <List>
       <ListItemText primary={"Add Class Due"}
                     style  = {{marginLeft:20, 
                               marginBottom:20
@@ -65,6 +86,10 @@ export default function TemporaryDrawer(props) {
      />
         
       </List>
+
+      )
+  }
+    
     </div>
   );
 
@@ -79,7 +104,7 @@ export default function TemporaryDrawer(props) {
       </IconButton>
       <Drawer open={state.top} 
               onClose={toggleDrawer('top', false)}
-              anchor = 'left'
+              anchor = {props.studentDetail ? 'right': 'left' }
               style = {{marginTop:'15%'}}
               classes = {{paper: classes.drawerPaper}}
       >
