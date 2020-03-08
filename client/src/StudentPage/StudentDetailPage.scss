@@ -1,8 +1,78 @@
+// A map of breakpoints.
+
+$breakpoints: (
+  xs: 576px,
+  sm: 768px,
+  md: 992px,
+  lg: 1200px
+);
+
+@mixin respond-above($breakpoint) {
+
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+    // Write the media query.
+    @media (min-width: $breakpoint-value) {
+      @content;
+    }
+
+  // If the breakpoint doesn't exist in the map.
+  } @else {
+
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+} 
+
+
+@mixin respond-below($breakpoint) {
+
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+    // Write the media query.
+    @media (max-width: ($breakpoint-value - 1)) {
+      @content;
+    }
+
+  // If the breakpoint doesn't exist in the map.
+  } @else {
+
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+
+
 .detail {
 	display: flex;
-	margin-left:30%;
-	margin-right:30%;
+  margin-left:30%;
+  margin-right:30%;
+  @include respond-below('md') {
+  display:none
+  }
 	justify-content:space-between
+}
+.detail-short {
+ @include respond-above('md') {
+  display:none
+  }
+  margin-left:3%;
+  margin-right:3%;
+}
+
+.class-detail {
+  display:flex;
+  margin-left:8px;
+  margin-right:8px;
+  justify-content:space-between
 }
 
 .button {
@@ -13,7 +83,11 @@
 	justify-content:space-between;	
 	top:20%;
 	position:absolute;
-	left:5%
+	left:5%;
+  @include respond-below('md') {
+  display:none
+  }
+
 
 }
 
@@ -34,6 +108,12 @@
 	margin-top: 60px;
 	margin-left:30%;
 	margin-right:30%;
+  @include respond-below('md') {
+  margin-left:5%;
+  margin-right:5%;
+  margin-top: 20px;
+  }
+
 }
 
 .transaction-due {
@@ -48,21 +128,27 @@
 .transaction-fee {
 	display: flex;
 	margin:10px;
-    box-shadow: rgba(0,0,0,0.8) 0 0 10px;
-    align-items:center;
-    height:40px;
-    background-color:#85bf31
+  box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+  align-items:center;
+  height:40px;
+  background-color:#85bf31
 
 }
 .amount {
 	min-width:100px;
 	text-align:center;
-	margin-right:100px
+	margin-right:100px;
+  @include respond-below('md') {
+  margin-right:10px
+  }
 }
 
 .date {
 	min-width:150px;
-	margin-left:10px
+	margin-left:10px;
+  @include respond-below('md') {
+  min-width:100px;
+  }
 }
 
 .home-link {
@@ -71,7 +157,45 @@
   top: 20px;
   color:#3f51b5;
   font-size:25px;
-  cursor:pointer
+  cursor:pointer;
+  @include respond-below('md') {
+  display:none
+  }
+  
+
+}
+
+.buttons {
+  position:absolute;
+  top:3%;
+  padding:0;
+  padding-top:4px;
+  margin-left:5%;
+  display:flex;
+  margin-right:5%;
+  width:90%;
+  justify-content:space-between;
+  @include respond-above('md') {
+  display:none
+  }
+}
+
+.student-name-sd {
+  margin-top:60px;
+  @include respond-below('md') {
+  margin-top:48px;
+  }
+}
+
+.home-button {
+  position:absolute;
+  top:3%;
+  padding:0;
+  padding-top:4px;
+  margin-left:10px;
+  @include respond-above('lg') {
+  display:none
+  }
 }
 
 

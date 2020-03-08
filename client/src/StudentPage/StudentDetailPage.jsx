@@ -22,6 +22,11 @@ import {withStyles } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import Pagination from '@material-ui/lab/Pagination';
+import TemporaryDrawer from '../components/Drawer';
+import HomeIcon from '@material-ui/icons/Home';
+import IconButton from '@material-ui/core/IconButton';
+
+
 
 
 const url = constantUtils.baseUrl;
@@ -56,7 +61,8 @@ function Alert(props) {
 function TotalDue(props) {
   return <h1 style = {{
                 color:"#FF4500",
-                fontWeight:'bold'
+                fontWeight:'bold',
+                marginTop:'0px'
              }}
   >
   Total Due:  {Math.abs(props.this.state.results[0].total_due)}</h1>
@@ -65,7 +71,8 @@ function TotalDue(props) {
 function TotalAdvance(props) {
    return <h1 style = {{
                 color:"#85bf31",
-                fontWeight:'bold'
+                fontWeight:'bold',
+                marginTop:'0px'
               }}
   >
   Total Advance:  {Math.abs(props.this.state.results[0].total_due)}</h1>
@@ -89,6 +96,8 @@ function FeeModal(props) {
             type="number"
             onChange={props.this.handleChange}
             name = "amount"
+            variant = "outlined"
+            style = {{marginBottom:"16px"}}
            />
            <FormControl component="fieldset" >
            <FormLabel component="legend">MOP</FormLabel>
@@ -144,6 +153,7 @@ function DueModal(props) {
             type="number"
             onChange={props.this.handleChange}
             name = "amount"
+            variant = "outlined"
            />
             <TextField
             autoFocus
@@ -153,6 +163,7 @@ function DueModal(props) {
             type="text"
             onChange={props.this.handleChange}
             name = "remarks"
+            variant = "outlined"
            />
           
             </div>
@@ -321,13 +332,20 @@ export class StudentDetailPage extends React.Component {
             </div>
             {this.state.studentObj &&
               ( <div>
-                <div style = {{marginTop:60}}>
+                <div className = "student-name-sd">
                 <h1 style = {{fontWeight: ' bold'}}> {this.state.studentObj.name}</h1>
                 </div>
                 <div className = "detail">
                 <h2 style = {{fontWeight: 'normal'}}> Roll No : {this.state.studentObj.roll_no} </h2>
                 <h2 style = {{fontWeight: 'normal'}}> Class: {this.state.studentObj.class} </h2>
                 <h2 style = {{fontWeight: 'normal'}}> Section : {this.state.studentObj.section}</h2>
+                </div>
+                <div  className = "detail-short">
+                <h2 style = {{fontWeight: 'normal', textAlign:'center', marginBottom:'0px'}}> Roll No : {this.state.studentObj.roll_no} </h2>
+                <div className = "class-detail">
+                <h2 style = {{fontWeight: 'normal'}}>Class : {this.state.studentObj.class} </h2>
+                <h2 style = {{fontWeight: 'normal'}}>Section : {this.state.studentObj.section}</h2>
+                </div>
                 </div>
                 </div>
               )
@@ -390,7 +408,22 @@ export class StudentDetailPage extends React.Component {
                     onChange = {this.handlePaginationChange}
        />
         </div>
-        
+        <div className = "buttons">
+        <div>
+        <IconButton style = {{padding:0,width:32,height:32}}
+                    onClick = {this.handleHomeLink}
+        >
+        <HomeIcon style = {{fontSize:32}} />
+        </IconButton>
+        </div>
+        <div>
+        <TemporaryDrawer studentDetail = {true} 
+                         handleDueOpen = {this.handleDueOpen}
+                         handleFeeOpen = {this.handleFeeOpen}
+
+        />
+        </div>
+        </div>
         </div>
     		
 
