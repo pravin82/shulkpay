@@ -96,6 +96,8 @@ function FeeModal(props) {
             type="number"
             onChange={props.this.handleChange}
             name = "amount"
+            variant = "outlined"
+            style = {{marginBottom:"16px"}}
            />
            <FormControl component="fieldset" >
            <FormLabel component="legend">MOP</FormLabel>
@@ -151,6 +153,7 @@ function DueModal(props) {
             type="number"
             onChange={props.this.handleChange}
             name = "amount"
+            variant = "outlined"
            />
             <TextField
             autoFocus
@@ -160,6 +163,7 @@ function DueModal(props) {
             type="text"
             onChange={props.this.handleChange}
             name = "remarks"
+            variant = "outlined"
            />
           
             </div>
